@@ -46,7 +46,7 @@ Run `$ python manage.py createsuperuser`
     5. Add App information:
 
 ```
-App name:
+App name: school-form
 Support email: your-email
 Developer contact information: your-email
 ```
@@ -86,9 +86,10 @@ You can leave the "Key" field empty.
     4. Add 127.0.0.1:8000 to Chosen sites and save the new settings.
 
 #### 7. Set up home/settings.py:
-1. Make sure SITE_ID has the correct id of your site. You can obtain the proper id with a simple query to your database:
-`SELECT * FROM django_site WHERE name = '127.0.0.1:8000'`.
-2. Set up your PostgreSQL database connection configuration:
+    1. Add 127.0.0.1 between single quotes to the list of ALLOWED_HOSTS, e.g. `ALLOWED_HOSTS = ['127.0.0.1']`; separate them with commas if there's more than one. Adding a dot like in '.mydomain.com' will work as a wildcard to include multiple subdomains.
+    2. Make sure SITE_ID has the correct id of your site. You can obtain the proper id with a simple query to your database: `SELECT * FROM django_site WHERE name = '127.0.0.1:8000'`.
+    3. Set up your PostgreSQL database connection configuration
+    
 ```
 DATABASES = {
     'default': {
@@ -159,7 +160,7 @@ Run `$ python manage.py createsuperuser`
     5. Add App information:
 
 ```
-App name:
+App name: school-form
 Support email: your-email
 Developer contact information: your-email
 ```
@@ -226,8 +227,9 @@ except Exception:
 
 
 #### 8. Set up home/settings.py:
-1. In case you're hosting the application from your domain, add it to the list of ALLOWED_HOSTS like: `ALLOWED_HOSTS = ['mydomain.com']`; separate them with commas if there's more than one. Adding a dot like in '.mydomain.com' will work as a wildcard to include multiple subdomains.
-2. Set up your PostgreSQL database connection configuration:
+    1. Add your domain between single quotes to the list of ALLOWED_HOSTS, e.g. `ALLOWED_HOSTS = ['mydomain.com']`; separate them with commas if there's more than one. Adding a dot like in '.mydomain.com' will work as a wildcard to include multiple subdomains.
+    2. Make sure SITE_ID has the correct id of your site. You can obtain the proper id with a simple query to your database: `SELECT * FROM django_site WHERE name = 'your-domain.com'`.
+    3. Set up your PostgreSQL database connection configuration:
 ```
 DATABASES = {
     'default': {
@@ -243,8 +245,6 @@ DATABASES = {
     }
 }
 ```
-3. Make sure SITE_ID has the correct id of your site. You can obtain the proper id with a simple query to your database:
-`SELECT * FROM django_site WHERE name = 'your-domain.com'`.
 
 #### 9. Set up your database
     Populate the forms_enrolledstudent table with the enrolled students info.
