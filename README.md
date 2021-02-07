@@ -1,8 +1,10 @@
 # School Evaluation Form
-Form about high school's services to be asnwered by the students. Students login through their Google account. Responses are recorded in a PostgreSQL database. The application prevents responses from unauthorized students and duplicated submissions.
+Form about high school's services to be asnwered by the students. Students log in through their Google account. Responses are recorded in a PostgreSQL database. The application prevents responses from unauthorized students and duplicated submissions.
 
 There're different requirements and setup instructions depending on your running setup:
+
 A) Run from localhost
+
 B) Run from your domain
 
 ---
