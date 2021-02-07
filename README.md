@@ -86,9 +86,10 @@ You can leave the "Key" field empty.
     4. Add 127.0.0.1:8000 to Chosen sites and save the new settings.
 
 #### 7. Set up home/settings.py:
-    1. Add 127.0.0.1 between single quotes to the list of ALLOWED_HOSTS, e.g. `ALLOWED_HOSTS = ['127.0.0.1']`; separate them with commas if there's more than one. Adding a dot like in '.mydomain.com' will work as a wildcard to include multiple subdomains.
-    2. Make sure SITE_ID has the correct id of your site. You can obtain the proper id with a simple query to your database: `SELECT * FROM django_site WHERE name = '127.0.0.1:8000'`.
-    3. Set up your PostgreSQL database connection configuration
+    1. Add your secret key.
+    2. Add 127.0.0.1 between single quotes to the list of ALLOWED_HOSTS, e.g. `ALLOWED_HOSTS = ['127.0.0.1']`; separate them with commas if there's more than one. Adding a dot like in '.mydomain.com' will work as a wildcard to include multiple subdomains.
+    3. Make sure SITE_ID has the correct id of your site. You can obtain the proper id with a simple query to your database: `SELECT * FROM django_site WHERE name = '127.0.0.1:8000'`.
+    4. Set up your PostgreSQL database connection configuration
     
 ```
 DATABASES = {
@@ -227,9 +228,10 @@ except Exception:
 
 
 #### 8. Set up home/settings.py:
-    1. Add your domain between single quotes to the list of ALLOWED_HOSTS, e.g. `ALLOWED_HOSTS = ['mydomain.com']`; separate them with commas if there's more than one. Adding a dot like in '.mydomain.com' will work as a wildcard to include multiple subdomains.
-    2. Make sure SITE_ID has the correct id of your site. You can obtain the proper id with a simple query to your database: `SELECT * FROM django_site WHERE name = 'your-domain.com'`.
-    3. Set up your PostgreSQL database connection configuration:
+    1. Add your secret key.
+    2. Add your domain between single quotes to the list of ALLOWED_HOSTS, e.g. `ALLOWED_HOSTS = ['mydomain.com']`; separate them with commas if there's more than one. Adding a dot like in '.mydomain.com' will work as a wildcard to include multiple subdomains.
+    3. Make sure SITE_ID has the correct id of your site. You can obtain the proper id with a simple query to your database: `SELECT * FROM django_site WHERE name = 'your-domain.com'`.
+    4. Set up your PostgreSQL database connection configuration:
 ```
 DATABASES = {
     'default': {
