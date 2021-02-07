@@ -275,11 +275,7 @@ DATABASES = {
 	WSGIProcessGroup your-domain.com
 
 	<Directory /var/www/school-form/home> 
-		#Order deny,allow
-		#Allow from all
-		#AllowOverride all 
 		Require all granted 
-		#Options FollowSymlinks
 	</Directory> 
 
 	<Directory /var/www/school-form/home> 
