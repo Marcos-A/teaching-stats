@@ -105,7 +105,7 @@ DATABASES = {
 }
 ```
 
-#### 8. Setup your database
+#### 8. Set up your database
     Populate the forms_enrolledstudent table with the enrolled students info.
 
 ### 9. Start Django server
@@ -246,10 +246,10 @@ DATABASES = {
 3. Make sure SITE_ID has the correct id of your site. You can obtain the proper id with a simple query to your database:
 `SELECT * FROM django_site WHERE name = 'your-domain.com'`.
 
-#### 9. Setup your database
+#### 9. Set up your database
     Populate the forms_enrolledstudent table with the enrolled students info.
 
-#### 10. Setup your Apache server
+#### 10. Set up your Apache server
     1. Create your VirtualHost configuration file at /etc/apache2/sites-available and save it as school-form.conf:
     
 ```
