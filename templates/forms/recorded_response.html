@@ -1,0 +1,17 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Resposta enregistrada</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
+</head>
+<body>
+    <div id="centerpoint">
+        <a href="{% url 'forms:recorded_response' %}"> </a>
+        <h1 class="recorded-response">Gràcies.</h1>
+        <h2 class="recorded-response">Les teves respostes han estat enregistrades.</h2>
+        <img class="logo" src="{% static 'img/logo.png' %}" alt="logo">
+    </div>
+</body>
+</html>
