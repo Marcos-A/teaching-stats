@@ -172,11 +172,11 @@ Developer contact information: your-email
 ```
 Application type: Web application
 Name: name-of-your-project
-Authorized JavaScript origins → Add URI: http://your-domain.com
+Authorized JavaScript origins → Add URI: http://127.0.0.1:8000
 Authorized redirect URIs → Add URI: http://your-domain.com/google/login/callback/
 ```
 	
-	8. Copy your Client id and Secret key
+    8. Copy your Client id and Secret key
 
 #### 6. Add your social account credentials to your project:
     1. Run: `$ python manage.py runserver`
@@ -188,7 +188,7 @@ Domain name: your-domain.com
 Display name: your-domain.com
 ```
 
-    3. Go to Social accounts → Social applications → Add social application. Set it up:
+    4. Go to Social accounts → Social applications → Add social application. Set it up:
     
 ```
 Provider: Google
@@ -198,7 +198,7 @@ Secret id: your-secret-key
 ```
 You can leave the "Key" field empty.
 
-    4. Add your domain to Chosen sites and save the new settings.
+    5. Add your domain to Chosen sites and save the new settings.
 
 #### 7. Set up home/wsgi.py
 
