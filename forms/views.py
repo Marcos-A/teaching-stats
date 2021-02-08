@@ -5,6 +5,8 @@ from .forms import EvaluateSchool
 from django.db import connection
 from datetime import datetime
 from .models import StudentEvaluation
+from django.contrib.auth import logout
+
 
 # Create your views here.
 
@@ -18,7 +20,9 @@ def user_checking(request):
 
     # Check if it's an address from the school    
     if '@elpuig.xeill.net' not in user_email :
-        return HttpResponseRedirect(reverse('forms:wrong_email'))
+        # End the user session
+        logout(request)
+        return HttpResponseRedirect(reverse('forms:wrong_email', args=(user_email,)))
     else:
         sql_check_user_enrolment = "SELECT * FROM forms_enrolledstudent WHERE email = %s"
         cursor.execute(sql_check_user_enrolment, (user_email,))
@@ -26,7 +30,9 @@ def user_checking(request):
 
         # Check if the student has been enrolled for the survey
         if user_enrolment is None:
-            return HttpResponseRedirect(reverse('forms:not_enrolled'))
+            # End the user session
+            logout(request)
+            return HttpResponseRedirect(reverse('forms:not_enrolled', args=(user_email,)))
         else:
             sql_check_previous_evaluation = "SELECT * FROM forms_studentevaluation WHERE email = %s"
             cursor.execute(sql_check_previous_evaluation, (user_email,))
@@ -34,7 +40,9 @@ def user_checking(request):
 
             # Check if the student has previously answered the survey
             if user_evaluation is not None:
-                return HttpResponseRedirect(reverse('forms:duplicated_answer'))
+                # End the user session
+                logout(request)
+                return HttpResponseRedirect(reverse('forms:duplicated_answer', args=(user_email,)))
             else:
                 return HttpResponseRedirect(reverse('forms:school_evaluation'))
 
@@ -56,7 +64,9 @@ def school_evaluation(request):
 
             # Check if the student has previously answered the survey
             if user_evaluation is not None:
-                return HttpResponseRedirect(reverse('forms:duplicated_answer'))
+                # End the user session
+                logout(request)
+                return HttpResponseRedirect(reverse('forms:duplicated_answer', args=(user_email,)))
             else:
                 sql_get_user_level_and_classgroup = "SELECT level, classgroup FROM forms_enrolledstudent WHERE email = %s"
                 cursor.execute(sql_get_user_level_and_classgroup, (user_email,))
@@ -69,6 +79,10 @@ def school_evaluation(request):
                 new_student_evaluation = StudentEvaluation(email=user_email,
                                                            evaluation_timestamp=timestamp)
                 new_student_evaluation.save()
+                
+                # End the user session
+                logout(request)
+                
                 return HttpResponseRedirect(reverse('forms:recorded_response'))
     else:
         items_form = EvaluateSchool()
@@ -80,13 +94,13 @@ def recorded_response(request):
     return render(request, 'forms/recorded_response.html')
 
 
-def wrong_email(request):
-    return render(request, 'errors/wrong_email.html')
+def wrong_email(request, user_email):
+    return render(request, 'errors/wrong_email.html', {'user_email':user_email})
 
 
-def not_enrolled(request):
-    return render(request, 'errors/not_enrolled.html')
+def not_enrolled(request, user_email):
+    return render(request, 'errors/not_enrolled.html', {'user_email':user_email})
 
 
-def duplicated_answer(request):
-    return render(request, 'errors/duplicated_answer.html')
+def duplicated_answer(request, user_email):
+    return render(request, 'errors/duplicated_answer.html', {'user_email':user_email})

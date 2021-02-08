@@ -6,8 +6,8 @@ app_name = 'forms'
 urlpatterns = [
     path('form/', views.school_evaluation, name='school_evaluation'),
     path('recorded_response/', views.recorded_response, name='recorded_response'),
-    path('wrong_email/', views.wrong_email, name='wrong_email'),
-    path('not_enrolled/', views.not_enrolled, name='not_enrolled'),
-    path('duplicated_answer', views.duplicated_answer, name='duplicated_answer'),
+    path('wrong_email<str:user_email>/', views.wrong_email, name='wrong_email'),
+    path('not_enrolled<str:user_email>/', views.not_enrolled, name='not_enrolled'),
+    path('duplicated_answer<str:user_email>/', views.duplicated_answer, name='duplicated_answer'),
     path('user_checking/', views.user_checking, name='user_checking'),
 ]

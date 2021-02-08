@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="UTF-8">
+    <meta charset="UTF-8">
     <title>Resposta enregistrada</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
@@ -12,6 +12,7 @@
         <a href="{% url 'forms:recorded_response' %}"> </a>
         <h1 class="recorded-response">Gràcies.</h1>
         <h2 class="recorded-response">Les teves respostes han estat enregistrades.</h2>
+        <p style="text-align: center;"><small>La teva sessió ha sigut desconnectada.<br>Pots tancar aquesta pestanya al teu navegador.</small></p>
         <img style="width: 30%; display: block; margin-left: auto; margin-right: auto;" src="{% static 'img/logo.png' %}" alt="logo">
     </div>
 </body>
