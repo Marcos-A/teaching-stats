@@ -24,3 +24,9 @@ Icon
 Network Trash Folder
 Temporary Items
 .apdisk
+
+# Python compiled bytecode
+*.pyc
+
+# Static directory created by Django through 'python manage.py collectstatic'
+static/
