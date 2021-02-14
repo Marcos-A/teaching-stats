@@ -3,7 +3,7 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>Avaluació del centre</title>
+  <title>Avaluació de la tutoria</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
   <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
 </head>
@@ -11,11 +11,11 @@
   <div class="container text-center pt-5">
     <h1>INS Puig Castellar</h1>
     <p>Enquesta de satisfacció curs 2020-21</p>
-    <p>Avaluació del centre</p>
+    <p>Avaluació de la tutoria</p>
     <div class='jumbotron'>
       <center>
         <div class="text-left" style="max-width:500px">
-          <form id="school_avaluation_form" action="{% url 'forms:school_evaluation' %}" method="post">
+          <form id="school_avaluation_form" action="{% url 'forms:counseling_evaluation' %}" method="post">
             {% csrf_token %}
 
             {% for question in questions_form %}
@@ -26,7 +26,7 @@
             <hr>
             {% endfor %}
             <br>
-            <center><button type="submit" class="btn btn-success btn-lg">Enviar respostes</button></center>
+            <center><button type="submit" class="btn btn-success btn-lg">Continuar</button></center>
           </form>
         </div>
     </div>

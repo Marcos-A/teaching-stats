@@ -11,22 +11,24 @@
   <div class="container text-center pt-5">
     <h1>INS Puig Castellar</h1>
     <p>Enquesta de satisfacció curs 2020-21</p>
-    <p>Avaluació del centre</p>
+    <p>Avaluació de les assignatures</p>
     <div class='jumbotron'>
       <center>
         <div class="text-left" style="max-width:500px">
-          <form id="school_avaluation_form" action="{% url 'forms:school_evaluation' %}" method="post">
+          <form id="school_avaluation_form" action="{% url 'forms:subject_evaluation' %}" method="post">
             {% csrf_token %}
+            {{ formset.management_data }}
+            {{ formset.management_form }}
 
-            {% for question in questions_form %}
-            <div class='form-group'>
-              <label class="scale_answers" for="{{ field.name }}">{{ question.label }}</label>
-              {{ question }}
-            </div>
+            {% for form in formset %}
+            <br>
+            <h3>{{ form.initial.short_name }}: {{ form.initial.long_name }}</h3>
+            {{ form }}
+            <br>
             <hr>
             {% endfor %}
             <br>
-            <center><button type="submit" class="btn btn-success btn-lg">Enviar respostes</button></center>
+            <center><button type="submit" class="btn btn-success btn-lg">Continuar</button></center>
           </form>
         </div>
     </div>

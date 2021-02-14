@@ -1,5 +1,5 @@
 # School Evaluation Form
-Form about high school's services to be asnwered by the students. Students log in through their Google account. Responses are recorded in a PostgreSQL database. The application prevents responses from unauthorized students and duplicated submissions.
+Form about high school's services, counseling and enrolled subjects to be asnwered by the students. Students log in through their Google account. Responses are recorded in a PostgreSQL database. The application prevents responses from unauthorized students and duplicated submissions.
 
 There're different requirements and setup instructions depending on your running setup:
 
@@ -121,19 +121,20 @@ Run:
 ```
 sudo apt install apache2 apache2-dev
 sudo apt-get install libapache2-mod-wsgi-py3
-sudo apt-get install python3	
+sudo apt-get install python3
+sudo apt-get install libpq-dev python-dev	
 sudo apt install python3-pip
+pip3 install django
 pip3 install virtualenv
 ```
 
-#### 1. Download the project to your /var/www folder.
-1. Go to /var/www/school-form
-2. Create a virtual environment: `virtualenv school-project-env`
-3. Activate the new environment: `source school-project-env/bin/activate`
+#### 1. Download the project to your /var/www folder and rename it as "enquestes".
+1. Go to /var/www/enquestes
+2. Create a virtual environment: `virtualenv enquestes-env`
+3. Activate the new environment: `source enquestes-env/bin/activate`
 4. Install:
 
 ```
-pip3 install django
 pip3 install django-allauth
 pip3 install psycopg2
 ```
@@ -208,11 +209,11 @@ import sys
 
 from django.core.wsgi import get_wsgi_application
 
-sys.path.append('/var/www/school-project')
-sys.path.append('/var/www/school-project/home')
+sys.path.append('/var/www/enquestes')
+sys.path.append('/var/www/enquestes/home')
 
 # Replace the Python version in the line below as needed 
-sys.path.append('/var/www/school-project/school-project-env/lib/python3.8/site-packages') 
+sys.path.append('/var/www/enquestes/enquestes-env/lib/python3.8/site-packages') 
  
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', "home.settings") 
 
@@ -252,7 +253,7 @@ DATABASES = {
     Populate the forms_enrolledstudent table with the enrolled students info.
 
 #### 10. Set up your Apache server
-    1. Create your VirtualHost configuration file at /etc/apache2/sites-available and save it as school-form.conf:
+    1. Create your VirtualHost configuration file at /etc/apache2/sites-available and save it as enquestes.conf:
     
 ```
 <VirtualHost *:80>
@@ -262,8 +263,8 @@ DATABASES = {
 	ServerAdmin admin@your-domain.com
 	DocumentRoot /var/www/school-form
 
-	ErrorLog /var/www/school-form/log/error.log
-	CustomLog /var/www/school-form/log/access.log combined
+	ErrorLog /var/www/enquestes/log/error.log
+	CustomLog /var/www/enquestes/log/access.log combined
 
 	LoadModule wsgi_module /usr/lib/apache2/modules/mod_wsgi.so
 
@@ -271,22 +272,22 @@ DATABASES = {
 	WSGIScriptAlias / /var/www/school-form/home/wsgi.py 
 
 	# Adjust the following line to match your Python path 
-	WSGIDaemonProcess your-domain.com threads=15 python-path=/var/www/school-project/school-project-env python-path=/var/www/school-form
+	WSGIDaemonProcess your-domain.com threads=15 python-path=/var/www/enquestes/enquestes-env python-path=/var/www/enquestes
 	WSGIProcessGroup your-domain.com
 
-	<Directory /var/www/school-form/home> 
+	<Directory /var/www/enquestes/home> 
 		Require all granted 
 	</Directory> 
 
-	<Directory /var/www/school-form/home> 
+	<Directory /var/www/enquestes/home> 
 		<Files wsgi.py>
 			Require all granted
 		</Files>
 	</Directory> 
  
-	Alias /static/ /var/www/school-form/static/
+	Alias /static/ /var/www/enquestes/static/
  
-	<Directory /var/www/school-form/static> 
+	<Directory /var/www/enquestes/static> 
  		Require all granted 
 	</Directory>
 
@@ -294,5 +295,12 @@ DATABASES = {
 ```
 
     2. To enable your configuration file, run: `sudo a2ensite school-form.conf`.
-    3. Restart the server: `sudo systemctl restart apache2`
+    3. Make sure you assign the correct permissions:
+    
+    ```
+    sudo chown -R YOUR-USER:www-data /var/www/enquestes
+    sudo chmod -R 775 /var/www/enquestes
+    ```
+    
+    4. Restart the server: `sudo systemctl restart apache2`
     

@@ -27,6 +27,8 @@ Temporary Items
 
 # Python compiled bytecode
 *.pyc
+__pycache__/
+*/__pycache__/
 
 # Static directory created by Django through 'python manage.py collectstatic'
 static/
