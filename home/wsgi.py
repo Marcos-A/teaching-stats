@@ -10,15 +10,15 @@ https://docs.djangoproject.com/en/3.1/howto/deployment/wsgi/
 import os
 import sys
 
-from django.core.wsgi import get_wsgi_application
-
 sys.path.append('/var/www/enquestes')
 sys.path.append('/var/www/enquestes/home')
 
 # Replace the Python version in the line below as needed 
 sys.path.append('/var/www/enquestes/enquestes-env/lib/python3.8/site-packages') 
  
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', "home.settings") 
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', "home.settings")
+
+from django.core.wsgi import get_wsgi_application
 
 try: 
     application = get_wsgi_application() 

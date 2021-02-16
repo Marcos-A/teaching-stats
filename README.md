@@ -124,7 +124,6 @@ sudo apt-get install libapache2-mod-wsgi-py3
 sudo apt-get install python3
 sudo apt-get install libpq-dev python-dev	
 sudo apt install python3-pip
-pip3 install django
 pip3 install virtualenv
 ```
 
@@ -135,6 +134,7 @@ pip3 install virtualenv
 4. Install:
 
 ```
+pip3 install django
 pip3 install django-allauth
 pip3 install psycopg2
 ```
@@ -207,8 +207,6 @@ You can leave the "Key" field empty.
 import os
 import sys
 
-from django.core.wsgi import get_wsgi_application
-
 sys.path.append('/var/www/enquestes')
 sys.path.append('/var/www/enquestes/home')
 
@@ -216,6 +214,8 @@ sys.path.append('/var/www/enquestes/home')
 sys.path.append('/var/www/enquestes/enquestes-env/lib/python3.8/site-packages') 
  
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', "home.settings") 
+
+from django.core.wsgi import get_wsgi_application
 
 try: 
     application = get_wsgi_application() 
