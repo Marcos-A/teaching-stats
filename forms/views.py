@@ -9,8 +9,8 @@ from .classes import UserEvaluation
 from .helpers import *
 from django.forms import formset_factory
 import json
+import pytz
 
-# Create your views here.
 
 def user_checking(request):
     try:
@@ -126,7 +126,8 @@ def school_evaluation(request):
             if questions_form.is_valid():
                     ue['evaluations']['Centre'] = questions_form.cleaned_data
 
-                    timestamp = str(datetime.now().strftime("%Y/%m/%d %H:%M:%S:%f"))
+                    timezone = pytz.timezone('Europe/Madrid')
+                    timestamp = str(datetime.now().astimezone(timezone).strftime("%Y-%m-%d %H:%M:%S"))
                     save_evaluations(ue, timestamp)
                     save_user_participation(ue['email'], timestamp)
 

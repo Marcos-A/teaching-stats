@@ -11,7 +11,7 @@
   <div class="container text-center pt-5">
     <h1>INS Puig Castellar</h1>
     <p>Enquesta de satisfacció curs 2020-21</p>
-    <p>Avaluació de les assignatures</p>
+    <h5>Avaluació de les assignatures</h5>
     <div class='jumbotron'>
       <center>
         <div class="text-left" style="max-width:500px">
@@ -23,6 +23,7 @@
             {% for form in formset %}
             <br>
             <h3>{{ form.initial.short_name }}: {{ form.initial.long_name }}</h3>
+            <br>
             {{ form }}
             <br>
             <hr>

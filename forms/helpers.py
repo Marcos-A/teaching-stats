@@ -86,7 +86,6 @@ def save_evaluations(user_evaluation, timestamp):
         question6 = user_evaluation['evaluations'][subject]['question6'] if 'question6' in user_evaluation['evaluations'][subject] else None
         opinion = user_evaluation['evaluations'][subject]['opinion']
 
-        print(subject)
         e = Evaluation(timestamp=timestamp,
                        subject_id=subject,
                        level=level,
