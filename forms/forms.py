@@ -81,7 +81,8 @@ class EvaluateSchoolCF(forms.Form):
                                    choices=[('1', 1), ('2', 2), ('3', 3),('4', 4), ('5', 5), ('6', 6),
                                             ('7', 7), ('8', 8), ('9', 9), ('10', 10)]))
          
-    question4 = forms.IntegerField(label=mark_safe("<p>Funcionen bé els serveis de borsa de treball i biblioteca?<br>" +
+    question4 = forms.IntegerField(label=mark_safe("<p>Funcionen bé els serveis del centre, com ara la cantina, "+
+                                                   "la borsa de treball o la biblioteca?<br>" +
                                                    "<small><i>Resposta obligatòria.</i></small></p>"),
                                    required=True,
                                    widget=forms.RadioSelect(
@@ -89,8 +90,7 @@ class EvaluateSchoolCF(forms.Form):
                                    choices=[('1', 1), ('2', 2), ('3', 3),('4', 4), ('5', 5), ('6', 6),
                                             ('7', 7), ('8', 8), ('9', 9), ('10', 10)]))
          
-    question5 = forms.IntegerField(label=mark_safe("<p>T'agraden les activitats extraescolars que es fan dins i fora del centre? " +
-                                                   "(Xerrades, competicions esportives, sortides, etc.)<br>" +
+    question5 = forms.IntegerField(label=mark_safe("<p>Funciona bé la Secretaria del centre?<br>" +
                                                    "<small><i>Resposta obligatòria.</i></small></p>"),
                                    required=True,
                                    widget=forms.RadioSelect(
@@ -246,7 +246,7 @@ class EvaluateSubjectCF(forms.Form):
                                    choices=[('1', 1), ('2', 2), ('3', 3),('4', 4), ('5', 5), ('6', 6),
                                             ('7', 7), ('8', 8), ('9', 9), ('10', 10)]))
 
-    opinion = forms.CharField(label=mark_safe("<p>Si us plau, fes una proposta per millorar la tutoria.<br>" +
+    opinion = forms.CharField(label=mark_safe("<p>Si us plau, fes una proposta per millorar l'assignatura.<br>" +
                                               "<small><i>Opcional, però molt important si penses que hi ha coses que cal canviar. " +
                                               "Extensió màxima: 280 caràcters.</i></small></p>"),
                               max_length=280,
