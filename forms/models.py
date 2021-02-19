@@ -1,8 +1,6 @@
 from django.db import models
 
 
-# Create your models here.
-
 class Degree(models.Model):
     short_name = models.CharField(primary_key=True, max_length=4)
     long_name = models.CharField(max_length=75, unique=True)
@@ -63,7 +61,7 @@ class EnrolledStudent(models.Model):
         ]
 
 class Evaluation(models.Model):
-    timestamp = models.CharField(max_length=26)
+    timestamp = models.DateTimeField(blank=False, null=False, auto_now_add=False)
     subject = models.ForeignKey(EvaluableItem, to_field='item', on_delete=models.CASCADE,
                                    related_name='evaluation_of_subject')
     level = models.CharField(max_length=25, null=True)
@@ -76,7 +74,7 @@ class Evaluation(models.Model):
     question4 = models.IntegerField(null=True)
     question5 = models.IntegerField(null=True)
     question6 = models.IntegerField(null=True)
-    opinion = models.CharField(max_length=280, null=True)
+    opinion = models.CharField(max_length=280, blank=True)
 
     class Meta:
         constraints = [
@@ -92,4 +90,4 @@ class Evaluation(models.Model):
 class StudentEvaluation(models.Model):
     email = models.ForeignKey(EnrolledStudent, to_field='email', on_delete=models.CASCADE,
                               related_name='student_evaluations')
-    evaluation_timestamp = models.CharField(max_length=26, null=True)
+    evaluation_timestamp = models.DateTimeField(blank=False, null=False, auto_now_add=False)

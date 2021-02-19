@@ -3,13 +3,12 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 from .forms import *
 from django.db import connection
-from datetime import datetime
 from django.contrib.auth import logout
 from .classes import UserEvaluation
 from .helpers import *
 from django.forms import formset_factory
 import json
-import pytz
+from django.utils import timezone
 
 
 def user_checking(request):
@@ -125,9 +124,9 @@ def school_evaluation(request):
 
             if questions_form.is_valid():
                     ue['evaluations']['Centre'] = questions_form.cleaned_data
+                    
+                    timestamp = timezone.now()
 
-                    timezone = pytz.timezone('Europe/Madrid')
-                    timestamp = str(datetime.now().astimezone(timezone).strftime("%Y-%m-%d %H:%M:%S"))
                     save_evaluations(ue, timestamp)
                     save_user_participation(ue['email'], timestamp)
 
