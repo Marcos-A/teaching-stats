@@ -112,7 +112,7 @@ DATABASES = {
 
 ### 9. Start Django server
 Run:
-`python3 manage.py startserver`
+`python3 manage.py runserver`
 
 ---
 
