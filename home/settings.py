@@ -92,7 +92,18 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'YOUR-DATABASE',
         'OPTIONS': {
-        'options': '-c search_path=django,YOUR-SCHEMA',
+        'options': '-c search_path=django,public',
+        },
+        'USER': 'YOUR-USER',
+        'PASSWORD': 'YOUR-PASSWORD',
+        'HOST': 'YOUR-HOST',
+        'PORT':'YOUR-PORT',
+    },
+    'master': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'YOUR-DATABASE',
+        'OPTIONS': {
+        'options': '-c search_path=django,master',
         },
         'USER': 'YOUR-USER',
         'PASSWORD': 'YOUR-PASSWORD',

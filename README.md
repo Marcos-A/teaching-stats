@@ -31,13 +31,16 @@ $ python manage.py makemigrations
 $ python manage.py migrate
 ```
 
-#### 3. Collect static:
+#### 3. Set up the database:
+Run `python dbsetup.py`
+
+#### 4. Collect static:
 Run `python manage.py collectstatic`
 
-#### 4. Create superuser:
+#### 5. Create superuser:
 Run `$ python manage.py createsuperuser`
 
-#### 5. Obtain your Google credentials:
+#### 6. Obtain your Google credentials:
 
     1. Visit the Google Developers Console site and log in with your Google account.
     2. Create a new project.
@@ -63,7 +66,7 @@ Authorized redirect URIs → Add URI: http://127.0.0.1:8000/google/login/callbac
 	
 	8. Copy your Client id and Secret key
 
-#### 6. Add your social account credentials to your project:
+#### 7. Add your social account credentials to your project:
     1. Run: `$ python manage.py runserver`
     2. Go to http://127.0.0.1:8000/admin and log in as superuser:
     3. Go to Sites → Site → Add site. Set it up:
@@ -85,7 +88,7 @@ You can leave the "Key" field empty.
 
     4. Add 127.0.0.1:8000 to Chosen sites and save the new settings.
 
-#### 7. Set up home/settings.py:
+#### 8. Set up home/settings.py:
     1. Add your secret key.
     2. Add 127.0.0.1 between single quotes to the list of ALLOWED_HOSTS, e.g. `ALLOWED_HOSTS = ['127.0.0.1']`; separate them with commas if there's more than one. Adding a dot like in '.mydomain.com' will work as a wildcard to include multiple subdomains.
     3. Make sure SITE_ID has the correct id of your site. You can obtain the proper id with a simple query to your database: `SELECT * FROM django_site WHERE name = '127.0.0.1:8000'`.
@@ -97,7 +100,18 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'name-of-your-database',
         'OPTIONS': {
-        'options': '-c search_path=django,name-of-your-schema',
+        'options': '-c search_path=django,public',
+        },
+        'USER': 'name-of-your-user',
+        'PASSWORD': 'password-of-your-user',
+        'HOST': 'name-of-your-host',
+        'PORT':'your-database-connection-port',
+    },
+    'master': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'name-of-your-database',
+        'OPTIONS': {
+        'options': '-c search_path=django,master',
         },
         'USER': 'name-of-your-user',
         'PASSWORD': 'password-of-your-user',
@@ -107,7 +121,7 @@ DATABASES = {
 }
 ```
 
-#### 8. Set up your database
+#### 9. Populate the database
     Populate the forms_enrolledstudent table with the enrolled students info.
 
 ### 9. Start Django server
@@ -127,7 +141,7 @@ sudo apt install python3-pip
 pip3 install virtualenv
 ```
 
-#### 1. Download the project to your /var/www folder and rename it as "enquestes".
+#### 1. Download the project to your /var/www folder.
 1. Go to /var/www/enquestes
 2. Create a virtual environment: `virtualenv enquestes-env`
 3. Activate the new environment: `source enquestes-env/bin/activate`
@@ -147,13 +161,16 @@ $ python manage.py makemigrations
 $ python manage.py migrate
 ```
 
-#### 3. Collect static:
+#### 3. Set up the database:
+Run `python dbsetup.py`
+
+#### 4. Collect static:
 Run `python manage.py collectstatic`
 
-#### 4. Create superuser:
+#### 5. Create superuser:
 Run `$ python manage.py createsuperuser`
 
-#### 5. Obtain your Google credentials:
+#### 6. Obtain your Google credentials:
 
     1. Visit the Google Developers Console site and log in with your Google account.
     2. Create a new project.
@@ -179,7 +196,7 @@ Authorized redirect URIs → Add URI: http://your-domain.com/google/login/callba
 	
     8. Copy your Client id and Secret key
 
-#### 6. Add your social account credentials to your project:
+#### 7. Add your social account credentials to your project:
     1. Run: `$ python manage.py runserver`
     2. Go to http://your-domain.com/admin and log in as superuser
     3. Go to Sites → Site → Add site. Set it up:
@@ -201,7 +218,7 @@ You can leave the "Key" field empty.
 
     5. Add your domain to Chosen sites and save the new settings.
 
-#### 7. Set up home/wsgi.py
+#### 8. Set up home/wsgi.py
 
 ```
 import os
@@ -228,18 +245,30 @@ except Exception:
 ```
 
 
-#### 8. Set up home/settings.py:
+#### 9. Set up home/settings.py:
     1. Add your secret key.
     2. Add your domain between single quotes to the list of ALLOWED_HOSTS, e.g. `ALLOWED_HOSTS = ['mydomain.com']`; separate them with commas if there's more than one. Adding a dot like in '.mydomain.com' will work as a wildcard to include multiple subdomains.
     3. Make sure SITE_ID has the correct id of your site. You can obtain the proper id with a simple query to your database: `SELECT * FROM django_site WHERE name = 'your-domain.com'`.
     4. Set up your PostgreSQL database connection configuration:
+    
 ```
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'name-of-your-database',
         'OPTIONS': {
-        'options': '-c search_path=django,name-of-your-schema',
+        'options': '-c search_path=django,public',
+        },
+        'USER': 'name-of-your-user',
+        'PASSWORD': 'password-of-your-user',
+        'HOST': 'name-of-your-host',
+        'PORT':'your-database-connection-port',
+    },
+    'master': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'name-of-your-database',
+        'OPTIONS': {
+        'options': '-c search_path=django,master',
         },
         'USER': 'name-of-your-user',
         'PASSWORD': 'password-of-your-user',
@@ -249,10 +278,10 @@ DATABASES = {
 }
 ```
 
-#### 9. Set up your database
+#### 10. Populate the database
     Populate the forms_enrolledstudent table with the enrolled students info.
 
-#### 10. Set up your Apache server
+#### 11. Set up your Apache server
     1. Create your VirtualHost configuration file at /etc/apache2/sites-available and save it as enquestes.conf:
     
 ```

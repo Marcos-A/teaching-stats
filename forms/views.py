@@ -2,25 +2,23 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from .forms import *
-from django.db import connection
+from django.db import connections
 from django.contrib.auth import logout
 from .classes import UserEvaluation
 from .helpers import *
 from django.forms import formset_factory
 import json
-from django.utils import timezone
 
 
 def user_checking(request):
     try:
-        cursor = connection.cursor()
+        cursor = connections['default'].cursor()
         auth_user_id = request.session['_auth_user_id']
         sql_get_user_email = "SELECT email FROM auth_user WHERE id = %s"
         cursor.execute(sql_get_user_email, (auth_user_id,))
-        column_names = [column[0] for column in cursor.description]
         user_email = cursor.fetchone()[0]
         request.session['user_email'] = user_email
-
+ 
         # Check if it's an address from the school    
         if '@elpuig.xeill.net' not in user_email :
             # End the user session
@@ -47,7 +45,7 @@ def user_checking(request):
                                         user_data['user_subjects'])
                     request.session['user_evaluation'] = json.loads(ue.toJson())
 
-                    if user_data['user_level'].lower() == 'cf':
+                    if user_data['user_level'] == 'Cicles Formatius':
                         return HttpResponseRedirect(reverse('forms:subject_evaluation'))
                     else: 
                         return HttpResponseRedirect(reverse('forms:school_evaluation'))
@@ -117,7 +115,7 @@ def school_evaluation(request):
         ue = request.session['user_evaluation']
 
         if request.method == 'POST':
-            if ue['level'].lower() == 'cf':
+            if ue['level'] == 'Cicles Formatius':
                 questions_form = EvaluateSchoolCF(request.POST)
             else:
                 questions_form = EvaluateSchoolESOBatx(request.POST)
@@ -125,17 +123,14 @@ def school_evaluation(request):
             if questions_form.is_valid():
                     ue['evaluations']['Centre'] = questions_form.cleaned_data
                     
-                    timestamp = timezone.now()
-
-                    save_evaluations(ue, timestamp)
-                    save_user_participation(ue['email'], timestamp)
-
+                    save_responses(ue)
+ 
                     # End the user session
                     logout(request)
                     
                     return HttpResponseRedirect(reverse('forms:recorded_response'))
         else:
-            if ue['level'].lower() == 'cf':
+            if ue['level'] == 'Cicles Formatius':
                 questions_form = EvaluateSchoolCF()
             else:
                 questions_form = EvaluateSchoolESOBatx()
@@ -151,15 +146,20 @@ def recorded_response(request):
 
 
 def wrong_email(request, user_email):
+    log_error('wrong_email', user_email)
     return render(request, 'errors/wrong_email.html', {'user_email':user_email})
 
 
 def not_enrolled(request, user_email):
+    log_error('not_enrolled', user_email)
     return render(request, 'errors/not_enrolled.html', {'user_email':user_email})
 
 
 def duplicated_answer(request, user_email):
+    log_error('duplicated_answer', user_email)
     return render(request, 'errors/duplicated_answer.html', {'user_email':user_email})
 
+
 def unidentified_user(request):
+    log_error('unidentified_user')
     return render(request, 'errors/unidentified_user.html')

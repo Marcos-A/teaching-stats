@@ -45,7 +45,7 @@ class EvaluateSchoolESOBatx(forms.Form):
                                             ('7', 7), ('8', 8), ('9', 9), ('10', 10)]))
     
     opinion = forms.CharField(label=mark_safe("<p>Si us plau, fes una proposta per millorar algun d'aquests aspectes.<br>" +
-                                              "<small><i>Opcional, però molt important si penses que hi ha coses que cal canviar." +
+                                              "<small><i>Opcional, però molt important si penses que hi ha coses que cal canviar. " +
                                               "Extensió màxima: 280 caràcters.</i></small></p>"),
                               max_length=280,
                               required=False,

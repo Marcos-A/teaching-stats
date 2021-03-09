@@ -32,3 +32,12 @@ __pycache__/
 
 # Static directory created by Django through 'python manage.py collectstatic'
 static/
+
+# Sensitive data
+log/*
+
+# keep log folder
+!log/.gitkeep
+
+# VS Code editor data
+.vscode/*
