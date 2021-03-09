@@ -1,8 +1,8 @@
--- Define constraints at public schema
 BEGIN WORK;
 
 SET TRANSACTION READ WRITE;
 
+-- Define constraints at public schema
 ALTER TABLE public.forms_answer
     ADD CONSTRAINT FK_forms_answer_question_id FOREIGN KEY(question_id) REFERENCES master.question(id);
 
