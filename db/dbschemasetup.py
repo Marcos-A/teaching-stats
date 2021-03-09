@@ -7,18 +7,15 @@ def run_sql_command(params, sql_file_name):
         sql_command = sql_file.read()
 
     conn = None
-
     try:
         conn = psycopg2.connect(**params)
-
         cur = conn.cursor()
-
         cur.execute(sql_command)
-
         cur.close()
 
     except (Exception, psycopg2.DatabaseError) as error:
         print(error)
+        
     finally:
         if conn is not None:
             conn.close()
