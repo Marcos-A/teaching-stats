@@ -31,7 +31,7 @@ $ python manage.py makemigrations
 $ python manage.py migrate
 ```
 
-#### 3. Set up the database:
+#### 3. Set up database:
 Run `python dbsetup.py`
 
 #### 4. Collect static:
@@ -161,7 +161,7 @@ $ python manage.py makemigrations
 $ python manage.py migrate
 ```
 
-#### 3. Set up the database:
+#### 3. Set up database:
 Run `python dbsetup.py`
 
 #### 4. Collect static:
