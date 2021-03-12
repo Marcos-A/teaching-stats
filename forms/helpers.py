@@ -144,7 +144,9 @@ def get_topic_id(subject_code):
     return topic_id
 
 
-# Get list of ids of instructors treaching a given subject from 'master' schema of database
+# Get trainer id from 'master' schema of database based on a subject id.
+# In case of multiple trainers associated with the same subject,
+# the function returns only the first one.
 def get_trainer_id(subject_id):
     cursor = connections['master'].cursor()
     sql = "SELECT trainer_id FROM master.subject_trainer WHERE subject_id = %s;"
