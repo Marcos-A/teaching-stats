@@ -38,14 +38,16 @@ def user_checking(request):
                     logout(request)
                     return HttpResponseRedirect(reverse('forms:duplicated_answer', args=(user_email,)))
                 else:
-                    ue = UserEvaluation(user_email, 
-                                        user_data['user_level'],
-                                        user_data['user_degree'],
-                                        user_data['user_classgroup'],
-                                        user_data['user_subjects'])
+                    ue = UserEvaluation(email=user_email,
+                                        level_id=user_data['user_level_id'],
+                                        level_name=user_data['user_level_name'],
+                                        degree_id=user_data['user_degree_id'],
+                                        classgroup_id=user_data['user_classgroup_id'],
+                                        classgroup_name=user_data['user_classgroup_name'],
+                                        subjects=user_data['user_subjects'])
                     request.session['user_evaluation'] = json.loads(ue.toJson())
-
-                    if user_data['user_level'] == 'Cicles Formatius':
+                    # ESO-BTX students only evaluate 'Centre'
+                    if 'cicles' in user_data['user_level_name'].lower():
                         return HttpResponseRedirect(reverse('forms:subject_evaluation'))
                     else: 
                         return HttpResponseRedirect(reverse('forms:school_evaluation'))
@@ -57,19 +59,19 @@ def user_checking(request):
 def subject_evaluation(request):
     try:
         ue = request.session['user_evaluation']
-        user_subjects_info = get_subjects_list_of_dicts(ue['degree'], ue['subjects'])
+        user_subjects_info = get_subjects_list_of_dicts(ue['subjects'], ue['degree_id'])
 
         SubjectsFormset = formset_factory(EvaluateSubjectCF, extra=len(user_subjects_info))
         formset = SubjectsFormset(request.POST or None)
         
-        # Pass  additional argument with subject info, instantiate in template with subform.initial
+        # Pass additional argument with subject info, instantiate in template with subform.initial
         for subform, data in zip(formset.forms, user_subjects_info):
             subform.initial = data
 
         subjects_evaluations = {}
         if formset.is_valid():
             for pos, form in enumerate(formset):
-                subjects_evaluations[user_subjects_info[pos]['short_name']] = form.cleaned_data
+                subjects_evaluations[user_subjects_info[pos]['subject_id.trainer_id']] = form.cleaned_data
 
             ue['evaluations'] = subjects_evaluations
             request.session['user_evaluation'] = ue
@@ -86,23 +88,32 @@ def subject_evaluation(request):
 def counseling_evaluation(request):
     try:
         ue = request.session['user_evaluation']
+        if 'tutoria1' in ue['subjects'].lower():
+            tutoria = 'Tutoria1'
+        elif 'tutoria2' in ue['subjects'].lower():
+            tutoria = 'Tutoria2'
+        # If student is not enrolled in 'Tutoria', ignore 'Tutoria' form
+        else:
+            return HttpResponseRedirect(reverse('forms:school_evaluation'))
+
 
         if request.method == 'POST':
-            if '1' in ue['classgroup']:
+            if tutoria == 'Tutoria1':
                 questions_form = EvaluateCounselingCF1(request.POST)
-            else:
+            elif tutoria == 'Tutoria2':
                 questions_form = EvaluateCounselingCF2(request.POST)
 
             if questions_form.is_valid():
-                ue['evaluations']['Tutoria'] = questions_form.cleaned_data
+                ue['evaluations'][tutoria] = questions_form.cleaned_data
                 request.session['user_evaluation'] = ue
 
                 return HttpResponseRedirect(reverse('forms:school_evaluation'))
         else:
-            if '1' in (ue['classgroup']):
+            if tutoria == 'Tutoria1':
                 questions_form = EvaluateCounselingCF1()
-            else:
+            elif tutoria == 'Tutoria2':
                 questions_form = EvaluateCounselingCF2()
+
             return render(request, 'forms/counseling_evaluation.html',
                         {'questions_form': questions_form})
     
@@ -115,7 +126,7 @@ def school_evaluation(request):
         ue = request.session['user_evaluation']
 
         if request.method == 'POST':
-            if ue['level'] == 'Cicles Formatius':
+            if 'cicles' in ue['level_name'].lower():
                 questions_form = EvaluateSchoolCF(request.POST)
             else:
                 questions_form = EvaluateSchoolESOBatx(request.POST)
@@ -130,7 +141,7 @@ def school_evaluation(request):
                     
                     return HttpResponseRedirect(reverse('forms:recorded_response'))
         else:
-            if ue['level'] == 'Cicles Formatius':
+            if 'cicles' in ue['level_name'].lower():
                 questions_form = EvaluateSchoolCF()
             else:
                 questions_form = EvaluateSchoolESOBatx()

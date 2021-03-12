@@ -15,6 +15,7 @@ CREATE VIEW reports.answer AS
            dg.name AS degree_name,
            su.code AS subject_code,
            su.name AS subject_name,
+           tr.name as trainer_name,
            fe."timestamp",
            tp.name AS question_topic,
            qu.statement AS question_statement,
@@ -22,7 +23,7 @@ CREATE VIEW reports.answer AS
     FROM forms_evaluation fe
     LEFT JOIN master.trainer tr ON tr.id = fe.trainer_id
     LEFT JOIN master.subject su ON su.id = fe.subject_id
-    LEFT JOIN forms_answer an ON an.id = fe.id
+    LEFT JOIN forms_answer an ON an.evaluation_id = fe.id
     LEFT JOIN master.question qu ON qu.id = an.question_id
     LEFT JOIN master.degree dg ON dg.id = su.degree_id
     LEFT JOIN master.department de ON de.id = dg.department_id

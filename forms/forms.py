@@ -11,7 +11,8 @@ class EvaluateSchoolESOBatx(forms.Form):
                                    choices=[('1', 1), ('2', 2), ('3', 3),('4', 4), ('5', 5), ('6', 6),
                                             ('7', 7), ('8', 8), ('9', 9), ('10', 10)]))
 
-    question2 = forms.IntegerField(label=mark_safe("<p>T'identifiques amb el centre?<br>" +
+    question2 = forms.IntegerField(label=mark_safe("<p>T'identifiques amb el centre? " +
+                               "(T'agrada, el sents teu...)<br>" +
                                                    "<small><i>Resposta obligatòria.</i></small></p>"),
                                    required=True,
                                    widget=forms.RadioSelect(
@@ -65,7 +66,8 @@ class EvaluateSchoolCF(forms.Form):
                                    choices=[('1', 1), ('2', 2), ('3', 3),('4', 4), ('5', 5), ('6', 6),
                                             ('7', 7), ('8', 8), ('9', 9), ('10', 10)]))
          
-    question2 = forms.IntegerField(label=mark_safe("<p>T'identifiques amb el centre?<br>" +
+    question2 = forms.IntegerField(label=mark_safe("<p>T'identifiques amb el centre? " +
+                             "(T'agrada, el sents teu...)<br>" +
                                                    "<small><i>Resposta obligatòria.</i></small></p>"),
                                    required=True,
                                    widget=forms.RadioSelect(
@@ -238,7 +240,7 @@ class EvaluateSubjectCF(forms.Form):
                                             ('7', 7), ('8', 8), ('9', 9), ('10', 10)]))
 
     question4 = forms.IntegerField(label=mark_safe("<p>Penses que el material triat pel professor és l'adequat? " + 
-                                                   "(Llibre o apunts, Moodle, activitats, transparències, videotutorials...)<br>" +
+                                                   "(Llibre o apunts, Moodle, activitats, transparències, videotutorials, etc.)<br>" +
                                                    "<small><i>Resposta obligatòria.</i></small></p>"),
                                    required=True,
                                    widget=forms.RadioSelect(
