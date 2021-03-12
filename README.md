@@ -122,9 +122,12 @@ DATABASES = {
 ```
 
 #### 9. Populate the database
-    Populate the forms_enrolledstudent table with the enrolled students info.
+You can use the following repositories for that purpose:
 
-### 9. Start Django server
+- [https://github.com/Marcos-A/school-form-db-population](https://github.com/Marcos-A/school-form-db-population)
+- [https://github.com/Marcos-A/school-form-import-students](https://github.com/Marcos-A/school-form-import-students)
+
+#### 10. Start Django server
 Run:
 `python3 manage.py runserver`
 
@@ -279,7 +282,10 @@ DATABASES = {
 ```
 
 #### 10. Populate the database
-    Populate the forms_enrolledstudent table with the enrolled students info.
+You can use the following repositories for that purpose:
+
+- [https://github.com/Marcos-A/school-form-db-population](https://github.com/Marcos-A/school-form-db-population)
+- [https://github.com/Marcos-A/school-form-import-students](https://github.com/Marcos-A/school-form-import-students)
 
 #### 11. Set up your Apache server
     1. Create your VirtualHost configuration file at /etc/apache2/sites-available and save it as enquestes.conf:
