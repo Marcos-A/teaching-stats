@@ -24,14 +24,11 @@ def check_user_survey_enrolment_data(email):
         level_id_position = column_names.index('level_id')
         user_data['user_level_id'] = user_enrolment[level_id_position]
 
-        level_name_position = column_names.index('level_name')
-        user_data['user_level_name'] = user_enrolment[level_name_position]
+        level_code_position = column_names.index('level_code')
+        user_data['user_level_code'] = user_enrolment[level_code_position]    
 
         classgroup_id_position = column_names.index('classgroup_id')
         user_data['user_classgroup_id'] = user_enrolment[classgroup_id_position]
-
-        classgroup_name_position = column_names.index('classgroup_name')
-        user_data['user_classgroup_name'] = user_enrolment[classgroup_name_position]
 
         enrolled_subjects_position = column_names.index('subjects')
         user_data['user_subjects'] = user_enrolment[enrolled_subjects_position]
@@ -163,7 +160,7 @@ def get_trainer_id(subject_id):
 # Save responses to forms_evaluation, forms_answer and forms_participation
 def save_responses(user_evaluation):
     try:
-        classgroup_name = user_evaluation['classgroup_name']
+        classgroup_id = user_evaluation['classgroup_id']
         degree_id = user_evaluation['degree_id']
         level_id =  user_evaluation['level_id']
 
@@ -186,7 +183,7 @@ def save_responses(user_evaluation):
                     subject_id = get_subject_id(subject_code, degree_id)
                     trainer_id = get_trainer_id(subject_id)
                 e = Evaluation(timestamp=timezone.now(),
-                               classgroup=classgroup_name,
+                               classgroup_id=classgroup_id,
                                trainer_id=trainer_id,
                                subject_id=subject_id,
                                level_id=level_id)

@@ -14,29 +14,26 @@ class UserEvaluation(JsonSerializable):
     def __init__(self, email, degree_id):
         self.email = email
         self.level_id = None
-        self.level_name = None
+        self.level_code = None
         self.degree_id = degree_id
         self.classgroup_id = None
-        self.classgroup_name = None
         self.subjects = None
         self.evaluations = {}
 
-    def __init__(self, email, level_id, level_name, degree_id, classgroup_id, classgroup_name, subjects):
+    def __init__(self, email, level_id, level_code, degree_id, classgroup_id, subjects):
         self.email = email
         self.level_id = level_id
-        self.level_name = level_name
+        self.level_code = level_code
         self.degree_id = degree_id
         self.classgroup_id = classgroup_id
-        self.classgroup_name = classgroup_name
         self.subjects = subjects
         self.evaluations = {}
 
     def __str__(self):
-        return (self.email + ', ' + self.level_id +
-                ', ' + self.level_name + ', ' + self.degree_id +
-                ', ' + self.classgroup_id + ', ' + self.classgroup_name +
+        return (self.email + ', ' + self.level_id + ', ' + self.level_code +
+                ', ' + self.degree_id + ', ' + self.classgroup_id +
                 ', ' + self.subjects + ', ' + self.evaluations)
 
     def __repr__(self):
-        return 'UserEvaluation(email=%s, level_id=%s, level_name=%s, degree_id=%s, classgroup_id=%s, classgroup_name=%s, subjects=%s)' %\
-               (self.email, self.level_id, self.level_name, self.degree_id, self.classgroup_id, self.classgroup_name, self.subjects)
+        return 'UserEvaluation(email=%s, level_id=%s, level_code=%s, degree_id=%s, classgroup_id=%s, subjects=%s)' %\
+               (self.email, self.level_id, self.level_code, self.degree_id, self.classgroup_id, self.subjects)

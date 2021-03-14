@@ -10,7 +10,7 @@ ALTER TABLE public.forms_participation
     ADD CONSTRAINT FK_forms_participation_email FOREIGN KEY(email) REFERENCES master.student(email);
 
 ALTER TABLE public.forms_evaluation
-    ADD CONSTRAINT FK_forms_evaluation_group_name FOREIGN KEY(classgroup) REFERENCES master."group"(name),
+    ADD CONSTRAINT FK_forms_evaluation_group_name FOREIGN KEY(classgroup_id) REFERENCES master."group"(id),
     ADD CONSTRAINT FK_forms_evaluation_trainer_id FOREIGN KEY(trainer_id) REFERENCES master.trainer(id),
     ADD CONSTRAINT FK_forms_evaluation_subject_id FOREIGN KEY(subject_id) REFERENCES master.subject(id),
     ADD CONSTRAINT FK_forms_evaluation_level_id FOREIGN KEY(level_id) REFERENCES master.level(id);
@@ -21,6 +21,7 @@ CREATE VIEW public.forms_student AS
            st.name,
            st.surname,
            lv.id AS level_id,
+           lv.code AS level_code,
            lv.name AS level_name,
            gr.id AS classgroup_id,
            gr.name AS classgroup_name,

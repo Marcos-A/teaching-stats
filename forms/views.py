@@ -40,16 +40,15 @@ def user_checking(request):
                 else:
                     ue = UserEvaluation(email=user_email,
                                         level_id=user_data['user_level_id'],
-                                        level_name=user_data['user_level_name'],
+                                        level_code=user_data['user_level_code'],
                                         degree_id=user_data['user_degree_id'],
                                         classgroup_id=user_data['user_classgroup_id'],
-                                        classgroup_name=user_data['user_classgroup_name'],
                                         subjects=user_data['user_subjects'])
                     request.session['user_evaluation'] = json.loads(ue.toJson())
                     # ESO-BTX students only evaluate 'Centre'
-                    if 'cicles' in user_data['user_level_name'].lower():
+                    if 'cf' in user_data['user_level_code'].lower():
                         return HttpResponseRedirect(reverse('forms:subject_evaluation'))
-                    else: 
+                    else:
                         return HttpResponseRedirect(reverse('forms:school_evaluation'))
         
     except:
@@ -126,7 +125,7 @@ def school_evaluation(request):
         ue = request.session['user_evaluation']
 
         if request.method == 'POST':
-            if 'cicles' in ue['level_name'].lower():
+            if 'cf' in ue['level_code'].lower():
                 questions_form = EvaluateSchoolCF(request.POST)
             else:
                 questions_form = EvaluateSchoolESOBatx(request.POST)
@@ -141,7 +140,7 @@ def school_evaluation(request):
                     
                     return HttpResponseRedirect(reverse('forms:recorded_response'))
         else:
-            if 'cicles' in ue['level_name'].lower():
+            if 'cf' in ue['level_code'].lower():
                 questions_form = EvaluateSchoolCF()
             else:
                 questions_form = EvaluateSchoolESOBatx()

@@ -5,7 +5,7 @@ from django.db.models.base import Model
 class Evaluation(models.Model):
     id = models.AutoField(primary_key=True)
     timestamp = models.DateTimeField()
-    classgroup = models.CharField(max_length=10)
+    classgroup_id = models.SmallIntegerField()
     trainer_id = models.SmallIntegerField(null=True)
     subject_id = models.SmallIntegerField()
     level_id = models.SmallIntegerField()
