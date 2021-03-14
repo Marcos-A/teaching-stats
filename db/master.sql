@@ -45,7 +45,7 @@ CONSTRAINT UQ_degree_unique_name UNIQUE(name)
 
 CREATE TABLE "group"(
     id SERIAL,
-    name VARCHAR(5) NOT NULL,
+    name VARCHAR(11) NOT NULL,
     degree_id SMALLINT NOT NULL,
 CONSTRAINT group_pkey PRIMARY KEY(id),
 CONSTRAINT FK_group_degree_id FOREIGN KEY(degree_id) REFERENCES degree(id),
