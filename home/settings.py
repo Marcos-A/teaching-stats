@@ -47,8 +47,6 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.google',
 
     # apps
-    # 'forms',
-    # 'social-app',
     'forms.apps.FormsConfig',
     'social_app.apps.SocialAppConfig',
 ]

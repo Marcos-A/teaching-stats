@@ -1,10 +1,12 @@
 import sys
+import traceback
 from db.dbschemasetup import run_sql_command, setup_connection_params
 from home.settings import DATABASES
 
 
 def catch_exception(e):    
-    print(str(e))    
+    print(str(e))
+    print(traceback.format_exc())    
     sys.exit()
 
 

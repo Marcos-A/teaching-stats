@@ -150,7 +150,7 @@ def get_trainer_id(subject_id):
     cursor.execute(sql, (subject_id,))
     query_result = cursor.fetchone()
     if query_result is not None:
-        trainer_id = cursor.fetchone()[0]
+        trainer_id = query_result[0]
     # Subject without assigned trainer
     else:
         trainer_id = None

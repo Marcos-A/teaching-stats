@@ -10,14 +10,15 @@ BEGIN WORK;
 -- Define views at reports schema
 CREATE VIEW reports.answer AS
     SELECT fe."timestamp",
+        lv.name AS level,
         de.name AS department,
         dg.name AS degree_name,
-        lv.name AS level,
         gr.name AS group_name,
         su.code AS subject_code,
         su.name AS subject_name,
         tr.name AS trainer_name,
         tp.name AS question_topic,
+        qu.sort AS question_sort,
         qu.statement AS question_statement,
         an.value AS answer_value
     FROM public.forms_evaluation fe
