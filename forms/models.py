@@ -5,10 +5,10 @@ from django.db.models.base import Model
 class Evaluation(models.Model):
     id = models.AutoField(primary_key=True)
     timestamp = models.DateTimeField()
-    classgroup_id = models.SmallIntegerField()
+    group_id = models.SmallIntegerField(default=None)
     trainer_id = models.SmallIntegerField(null=True)
-    subject_id = models.SmallIntegerField()
-    level_id = models.SmallIntegerField()
+    subject_id = models.SmallIntegerField(default=None)
+    level_id = models.SmallIntegerField(default=None)
 
 class Answer(models.Model):
     id = models.AutoField(primary_key=True)

@@ -5,6 +5,17 @@ import os
 from .models import *
 
 
+"""
+Uncomment the proper couple of options depending on your deployment platform
+"""
+# Django server error log files, uncomment when using the Django server
+DB_SAVE_ERROR_LOG = os.path.join(os.getcwd(), 'log', 'error_log-db_save.txt')
+WRONG_ACCESS_ERROR_LOG = os.path.join(os.getcwd(), 'log', 'error_log-wrong_access.txt')
+# WSGI deployment error log files, uncomment when using WSGI
+#DB_SAVE_ERROR_LOG = os.path.abspath('/var/www/enquestes/log/error_log-db_save.txt')
+#WRONG_ACCESS_ERROR_LOG = os.path.abspath('/var/www/enquestes/log/error_log-wrong_access.txt')
+
+
 # Check if user has been selected to participate in the survey to obtain its information
 def check_user_survey_enrolment_data(email):
     cursor = connections['default'].cursor()
@@ -27,8 +38,8 @@ def check_user_survey_enrolment_data(email):
         level_code_position = column_names.index('level_code')
         user_data['user_level_code'] = user_enrolment[level_code_position]    
 
-        classgroup_id_position = column_names.index('classgroup_id')
-        user_data['user_classgroup_id'] = user_enrolment[classgroup_id_position]
+        group_id_position = column_names.index('group_id')
+        user_data['user_group_id'] = user_enrolment[group_id_position]
 
         enrolled_subjects_position = column_names.index('subjects')
         user_data['user_subjects'] = user_enrolment[enrolled_subjects_position]
@@ -160,7 +171,7 @@ def get_trainer_id(subject_id):
 # Save responses to forms_evaluation, forms_answer and forms_participation
 def save_responses(user_evaluation):
     try:
-        classgroup_id = user_evaluation['classgroup_id']
+        group_id = user_evaluation['group_id']
         degree_id = user_evaluation['degree_id']
         level_id =  user_evaluation['level_id']
 
@@ -183,7 +194,7 @@ def save_responses(user_evaluation):
                     subject_id = get_subject_id(subject_code, degree_id)
                     trainer_id = get_trainer_id(subject_id)
                 e = Evaluation(timestamp=timezone.now(),
-                               classgroup_id=classgroup_id,
+                               group_id=group_id,
                                trainer_id=trainer_id,
                                subject_id=subject_id,
                                level_id=level_id)
@@ -211,26 +222,26 @@ def save_responses(user_evaluation):
 # Save error log
 def log_error(error, data='no data'):
     if error == 'wrong_email':
-        with open(os.path.join(os.getcwd(), 'log', 'error_log-wrong_access.txt'), 'a') as error_log:
+        with open(WRONG_ACCESS_ERROR_LOG, 'a') as error_log:
             error_log.write("%s, %s, %s" % (str(timezone.now()), 'wrong_email', data) + "\n")
             
     elif error == 'not_enrolled':
-        with open(os.path.join(os.getcwd(), 'log', 'error_log-wrong_access.txt'), 'a') as error_log:
+        with open(WRONG_ACCESS_ERROR_LOG, 'a') as error_log:
             error_log.write("%s, %s, %s" % (str(timezone.now()), 'not_enrolled', data) + "\n")
 
     elif error == 'duplicated_answer':
-        with open(os.path.join(os.getcwd(), 'log', 'error_log-wrong_access.txt'), 'a') as error_log:
+        with open(WRONG_ACCESS_ERROR_LOG, 'a') as error_log:
             error_log.write("%s, %s, %s" % (str(timezone.now()), 'duplicated_answer', data) + "\n")
 
     elif error == 'unidentified_user':
-        with open(os.path.join(os.getcwd(), 'log', 'error_log-wrong_access.txt'), 'a') as error_log:
+        with open(WRONG_ACCESS_ERROR_LOG, 'a') as error_log:
             error_log.write("%s, %s, %s" % (str(timezone.now()), 'unidentified_user', data) + "\n")
 
     # Database save error
     else:
         # Remove email information to ensure anonimity
         del data['email']
-        with open(os.path.join(os.getcwd(), 'log', 'error_log-db_save.txt'), 'a') as error_log:
+        with open(DB_SAVE_ERROR_LOG, 'a') as error_log:
             error_log.write("%s, %s, %s" % (str(timezone.now()),
                                             error,
                                             json.dumps(data, ensure_ascii=False))

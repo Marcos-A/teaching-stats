@@ -42,7 +42,7 @@ def user_checking(request):
                                         level_id=user_data['user_level_id'],
                                         level_code=user_data['user_level_code'],
                                         degree_id=user_data['user_degree_id'],
-                                        classgroup_id=user_data['user_classgroup_id'],
+                                        group_id=user_data['user_group_id'],
                                         subjects=user_data['user_subjects'])
                     request.session['user_evaluation'] = json.loads(ue.toJson())
                     # ESO-BTX students only evaluate 'Centre'

@@ -22,7 +22,7 @@ CREATE VIEW reports.answer AS
         qu.statement AS question_statement,
         an.value AS answer_value
     FROM public.forms_evaluation fe
-        LEFT JOIN master."group" gr ON gr.id = fe.classgroup_id
+        LEFT JOIN master."group" gr ON gr.id = fe.group_id
         LEFT JOIN master.trainer tr ON tr.id = fe.trainer_id
         LEFT JOIN master.subject su ON su.id = fe.subject_id
         LEFT JOIN public.forms_answer an ON an.evaluation_id = fe.id

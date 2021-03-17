@@ -27,7 +27,7 @@ class Migration(migrations.Migration):
                 ('name', models.CharField(max_length=50, null=True)),
                 ('surname', models.CharField(max_length=50, null=True)),
                 ('level', models.CharField(max_length=25)),
-                ('classgroup', models.CharField(max_length=10, null=True)),
+                ('group', models.CharField(max_length=10, null=True)),
                 ('enrolled_subjects', models.CharField(max_length=75, null=True)),
                 ('degree', models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, related_name='students_of_degree', to='forms.degree')),
             ],
@@ -52,7 +52,7 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('timestamp', models.CharField(max_length=26)),
                 ('level', models.CharField(max_length=25, null=True)),
-                ('classgroup', models.CharField(max_length=10, null=True)),
+                ('group', models.CharField(max_length=10, null=True)),
                 ('question1', models.IntegerField()),
                 ('question2', models.IntegerField()),
                 ('question3', models.IntegerField()),
@@ -82,11 +82,11 @@ class Migration(migrations.Migration):
         ),
         migrations.AddConstraint(
             model_name='enrolledstudent',
-            constraint=models.CheckConstraint(check=models.Q(models.Q(_negated=True, level__iexact='CF'), ('classgroup__isnull', False), _connector='OR'), name='forms_enrolledstudent_check_cf_classgroup_not_null'),
+            constraint=models.CheckConstraint(check=models.Q(models.Q(_negated=True, level__iexact='CF'), ('group__isnull', False), _connector='OR'), name='forms_enrolledstudent_check_cf_group_not_null'),
         ),
         migrations.AddConstraint(
             model_name='enrolledstudent',
-            constraint=models.CheckConstraint(check=models.Q(models.Q(_negated=True, level__iexact='CF'), ('classgroup__contains', '1'), ('classgroup__contains', '2'), _connector='OR'), name='forms_enrolledstudent_check_cf_classgroup_contains_course_1_or_2'),
+            constraint=models.CheckConstraint(check=models.Q(models.Q(_negated=True, level__iexact='CF'), ('group__contains', '1'), ('group__contains', '2'), _connector='OR'), name='forms_enrolledstudent_check_cf_group_contains_course_1_or_2'),
         ),
         migrations.AddConstraint(
             model_name='enrolledstudent',

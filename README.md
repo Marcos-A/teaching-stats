@@ -127,7 +127,11 @@ You can use the following repositories for that purpose:
 - [https://github.com/Marcos-A/school-form-db-population](https://github.com/Marcos-A/school-form-db-population)
 - [https://github.com/Marcos-A/school-form-import-students](https://github.com/Marcos-A/school-form-import-students)
 
-#### 10. Start Django server
+#### 10. Set up log location
+Comment/uncomment the proper lines at forms/helpers.py (lines 8-16) depending on your deployment server:
+- for localhost: uncomment lines 12-13, comment lines 15-16
+
+#### 11. Start Django server
 Run:
 `python3 manage.py runserver`
 
@@ -137,11 +141,9 @@ Run:
 #### Requirements
 ```
 sudo apt install apache2 apache2-dev
-sudo apt-get install libapache2-mod-wsgi-py3
 sudo apt-get install python3
-sudo apt-get install libpq-dev python-dev	
-sudo apt install python3-pip
-pip3 install virtualenv
+sudo apt-get install libapache2-mod-wsgi-py3
+sudo apt install virtualenv
 ```
 
 #### 1. Download the project to your /var/www folder.
@@ -151,9 +153,9 @@ pip3 install virtualenv
 4. Install:
 
 ```
-pip3 install django
-pip3 install django-allauth
-pip3 install psycopg2
+pip install django
+pip install django-allauth
+pip install psycopg2-binary
 ```
 
 #### 2. Migrate database info:
@@ -296,7 +298,7 @@ You can use the following repositories for that purpose:
 	ServerAlias www.your-domain.com
 
 	ServerAdmin admin@your-domain.com
-	DocumentRoot /var/www/school-form
+	DocumentRoot /var/www/enquestes
 
 	ErrorLog /var/www/enquestes/log/error.log
 	CustomLog /var/www/enquestes/log/access.log combined
@@ -339,3 +341,6 @@ You can use the following repositories for that purpose:
     
     4. Restart the server: `sudo systemctl restart apache2`
     
+#### 12. Set up log location
+Comment/uncomment the proper lines at forms/helpers.py (lines 8-16) depending on your deployment server:
+- for Apache server with WSGI: comment lines 12-13, uncomment lines 15-16
