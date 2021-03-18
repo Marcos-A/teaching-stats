@@ -44,16 +44,16 @@ def check_user_survey_enrolment_data(email):
 
 
 # Check if the user has previously answered the survey
-def check_previous_answer(email):
-    cursor = connections['reports'].cursor()
-    sql_check_previous_evaluation = "SELECT * FROM participation WHERE email = %s;"
-    cursor.execute(sql_check_previous_evaluation, (email,))
+def check_previous_answer(user_id):
+    cursor = connections['default'].cursor()
+    sql_check_previous_evaluation = "SELECT * FROM forms_participation WHERE student_id = %s;"
+    cursor.execute(sql_check_previous_evaluation, (user_id,))
     user_previous_evaluation = cursor.fetchone()
 
-    if user_previous_evaluation is not None:
-        return True
-    else:
+    if user_previous_evaluation is None:
         return False
+    else:
+        return True
 
 
 # Turn string of subjects as a list of dicts with the complete info about every subject

@@ -32,18 +32,18 @@ def user_checking(request):
                 logout(request)
                 return HttpResponseRedirect(reverse('forms:not_enrolled', args=(user_email,)))
             else:
+                ue = UserEvaluation(id=user_data['user_id'],
+                                    level_id=user_data['user_level_id'],
+                                    level_code=user_data['user_level_code'],
+                                    degree_id=user_data['user_degree_id'],
+                                    group_id=user_data['user_group_id'],
+                                    subjects=user_data['user_subjects'])
                 # Check if the student has previously answered the survey
-                if check_previous_answer(user_email):
+                if check_previous_answer(user_data['user_id']):
                     # End the user session
                     logout(request)
                     return HttpResponseRedirect(reverse('forms:duplicated_answer', args=(user_email,)))
                 else:
-                    ue = UserEvaluation(id=user_data['user_id'],
-                                        level_id=user_data['user_level_id'],
-                                        level_code=user_data['user_level_code'],
-                                        degree_id=user_data['user_degree_id'],
-                                        group_id=user_data['user_group_id'],
-                                        subjects=user_data['user_subjects'])
                     request.session['user_evaluation'] = json.loads(ue.toJson())
                     # ESO-BTX students only evaluate 'Centre'
                     if 'cf' in user_data['user_level_code'].lower():
