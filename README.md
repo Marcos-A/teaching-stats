@@ -106,6 +106,7 @@ DATABASES = {
         'PASSWORD': 'password-of-your-user',
         'HOST': 'name-of-your-host',
         'PORT':'your-database-connection-port',
+        'CONN_MAX_AGE': 0,
     },
     'master': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -117,6 +118,19 @@ DATABASES = {
         'PASSWORD': 'password-of-your-user',
         'HOST': 'name-of-your-host',
         'PORT':'your-database-connection-port',
+        'CONN_MAX_AGE': 0,
+    },
+    'reports': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'name-of-your-database',
+        'OPTIONS': {
+        'options': '-c search_path=django,reports',
+        },
+        'USER': 'name-of-your-user',
+        'PASSWORD': 'password-of-your-user',
+        'HOST': 'name-of-your-host',
+        'PORT':'your-database-connection-port',
+        'CONN_MAX_AGE': 0,
     }
 }
 ```
@@ -127,11 +141,7 @@ You can use the following repositories for that purpose:
 - [https://github.com/Marcos-A/school-form-db-population](https://github.com/Marcos-A/school-form-db-population)
 - [https://github.com/Marcos-A/school-form-import-students](https://github.com/Marcos-A/school-form-import-students)
 
-#### 10. Set up log location
-Comment/uncomment the proper lines at forms/helpers.py (lines 8-16) depending on your deployment server:
-- for localhost: uncomment lines 12-13, comment lines 15-16
-
-#### 11. Start Django server
+#### 10. Start Django server
 Run:
 `python3 manage.py runserver`
 
@@ -268,6 +278,7 @@ DATABASES = {
         'PASSWORD': 'password-of-your-user',
         'HOST': 'name-of-your-host',
         'PORT':'your-database-connection-port',
+        'CONN_MAX_AGE': 0,
     },
     'master': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -279,6 +290,19 @@ DATABASES = {
         'PASSWORD': 'password-of-your-user',
         'HOST': 'name-of-your-host',
         'PORT':'your-database-connection-port',
+        'CONN_MAX_AGE': 0,
+    },
+    'reports': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'name-of-your-database',
+        'OPTIONS': {
+        'options': '-c search_path=django,reports',
+        },
+        'USER': 'name-of-your-user',
+        'PASSWORD': 'password-of-your-user',
+        'HOST': 'name-of-your-host',
+        'PORT':'your-database-connection-port',
+        'CONN_MAX_AGE': 0,
     }
 }
 ```
@@ -341,6 +365,3 @@ You can use the following repositories for that purpose:
     
     4. Restart the server: `sudo systemctl restart apache2`
     
-#### 12. Set up log location
-Comment/uncomment the proper lines at forms/helpers.py (lines 8-16) depending on your deployment server:
-- for Apache server with WSGI: comment lines 12-13, uncomment lines 15-16

@@ -5,15 +5,8 @@ import os
 from .models import *
 
 
-"""
-Uncomment the proper couple of options depending on your deployment platform
-"""
-# Django server error log files, uncomment when using the Django server
-DB_SAVE_ERROR_LOG = os.path.join(os.getcwd(), 'log', 'error_log-db_save.txt')
-WRONG_ACCESS_ERROR_LOG = os.path.join(os.getcwd(), 'log', 'error_log-wrong_access.txt')
-# WSGI deployment error log files, uncomment when using WSGI
-#DB_SAVE_ERROR_LOG = os.path.abspath('/var/www/enquestes/log/error_log-db_save.txt')
-#WRONG_ACCESS_ERROR_LOG = os.path.abspath('/var/www/enquestes/log/error_log-wrong_access.txt')
+DB_SAVE_ERROR_LOG = os.path.join(os.path.dirname(__file__), '..', 'log', 'error_log-db_save.txt')
+WRONG_ACCESS_ERROR_LOG = os.path.join(os.path.dirname(__file__), '..', 'log', 'error_log-wrong_access.txt')
 
 
 # Check if user has been selected to participate in the survey to obtain its information
@@ -28,6 +21,9 @@ def check_user_survey_enrolment_data(email):
         return None
     else:
         user_data = {}
+
+        user_id_position = column_names.index('id')
+        user_data['user_id'] = user_enrolment[user_id_position]
 
         degree_id_position = column_names.index('degree_id')
         user_data['user_degree_id'] = user_enrolment[degree_id_position]
@@ -49,8 +45,8 @@ def check_user_survey_enrolment_data(email):
 
 # Check if the user has previously answered the survey
 def check_previous_answer(email):
-    cursor = connections['default'].cursor()
-    sql_check_previous_evaluation = "SELECT * FROM forms_participation WHERE email = %s;"
+    cursor = connections['reports'].cursor()
+    sql_check_previous_evaluation = "SELECT * FROM participation WHERE email = %s;"
     cursor.execute(sql_check_previous_evaluation, (email,))
     user_previous_evaluation = cursor.fetchone()
 
@@ -210,8 +206,8 @@ def save_responses(user_evaluation):
                     question_sort += 1
 
             # Save to forms_participation
-            email = user_evaluation['email']
-            p = Participation(timestamp=timezone.now(), email=email)
+            id = user_evaluation['id']
+            p = Participation(timestamp=timezone.now(), student_id=id)
             p.save()
 
     # Save data log in case of database saving error
@@ -239,8 +235,8 @@ def log_error(error, data='no data'):
 
     # Database save error
     else:
-        # Remove email information to ensure anonimity
-        del data['email']
+        # Remove user id to ensure anonimity
+        del data['id']
         with open(DB_SAVE_ERROR_LOG, 'a') as error_log:
             error_log.write("%s, %s, %s" % (str(timezone.now()),
                                             error,

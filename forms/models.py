@@ -22,4 +22,4 @@ class Answer(models.Model):
 class Participation(models.Model):
     id = models.AutoField(primary_key=True)
     timestamp = models.DateTimeField()
-    email = models.EmailField(max_length=75, unique=True)
+    student_id = models.SmallIntegerField(default=None, unique=True)
