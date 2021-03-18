@@ -119,18 +119,6 @@ DATABASES = {
         'HOST': 'name-of-your-host',
         'PORT':'your-database-connection-port',
         'CONN_MAX_AGE': 0,
-    },
-    'reports': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'name-of-your-database',
-        'OPTIONS': {
-        'options': '-c search_path=django,reports',
-        },
-        'USER': 'name-of-your-user',
-        'PASSWORD': 'password-of-your-user',
-        'HOST': 'name-of-your-host',
-        'PORT':'your-database-connection-port',
-        'CONN_MAX_AGE': 0,
     }
 }
 ```
@@ -285,18 +273,6 @@ DATABASES = {
         'NAME': 'name-of-your-database',
         'OPTIONS': {
         'options': '-c search_path=django,master',
-        },
-        'USER': 'name-of-your-user',
-        'PASSWORD': 'password-of-your-user',
-        'HOST': 'name-of-your-host',
-        'PORT':'your-database-connection-port',
-        'CONN_MAX_AGE': 0,
-    },
-    'reports': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'name-of-your-database',
-        'OPTIONS': {
-        'options': '-c search_path=django,reports',
         },
         'USER': 'name-of-your-user',
         'PASSWORD': 'password-of-your-user',
