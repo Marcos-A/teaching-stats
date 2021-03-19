@@ -58,7 +58,7 @@ def user_checking(request):
 def subject_evaluation(request):
     try:
         ue = request.session['user_evaluation']
-        user_subjects_info = get_subjects_list_of_dicts(ue['subjects'], ue['degree_id'])
+        user_subjects_info = get_subjects_list_of_dicts(ue['subjects'], ue['degree_id'], ue['group_id'])
 
         SubjectsFormset = formset_factory(EvaluateSubjectCF, extra=len(user_subjects_info))
         formset = SubjectsFormset(request.POST or None)

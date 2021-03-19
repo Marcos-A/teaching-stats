@@ -57,18 +57,26 @@ def check_previous_answer(user_id):
 
 
 # Turn string of subjects as a list of dicts with the complete info about every subject
-def get_subjects_list_of_dicts(string_of_subjects, degree_id):
+def get_subjects_list_of_dicts(string_of_subjects, degree_id, group_id):
     subjects_list = [subject.replace(' ', '') for subject in string_of_subjects.split(',')
                      if 'Tutoria' not in subject and 'Centre' not in subject]
     
     sql_get_subject_information = """
-                                    SELECT * from forms_subject
-                                    WHERE code = %s AND degree_id = %s; 
+                                    SELECT * FROM (
+                                        SELECT id, code, name, degree_id, degree_code, degree_name, trainer_id, %s AS group_id
+                                        FROM public.forms_subject 
+                                        WHERE code = %s and degree_id= %s AND group_id IS NULL
+                                        UNION
+                                        SELECT *
+                                        FROM public.forms_subject 
+                                        WHERE code = %s and degree_id=%s AND group_id = %s
+                                    ) T WHERE group_id = %s
+                                    ORDER BY code, name;
                                   """
     subjects_list_of_dicts =  []
     for subject in subjects_list:
         cursor = connections['default'].cursor()
-        cursor.execute(sql_get_subject_information, (subject, degree_id,))
+        cursor.execute(sql_get_subject_information, (group_id, subject, degree_id, subject, degree_id, group_id, group_id,))
         column_names = [column[0] for column in cursor.description]
         user_enrolments = cursor.fetchall()
         for enrolment in user_enrolments:
@@ -153,7 +161,7 @@ def get_topic_id(subject_code):
 # the function returns only the first one.
 def get_trainer_id(subject_id):
     cursor = connections['master'].cursor()
-    sql = "SELECT trainer_id FROM master.subject_trainer WHERE subject_id = %s;"
+    sql = "SELECT trainer_id FROM master.subject_trainer_group WHERE subject_id = %s;"
     cursor.execute(sql, (subject_id,))
     query_result = cursor.fetchone()
     if query_result is not None:

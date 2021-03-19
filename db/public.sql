@@ -53,7 +53,7 @@ CREATE VIEW public.forms_subject AS
         tr.id AS trainer_id
     FROM master.subject sb
         LEFT JOIN master.degree dg ON dg.id = sb.degree_id
-        LEFT JOIN master.subject_trainer st ON st.subject_id = sb.id
+        LEFT JOIN master.subject_trainer_group st ON st.subject_id = sb.id
         LEFT JOIN master.trainer tr ON tr.id = st.trainer_id;
 
 COMMIT;

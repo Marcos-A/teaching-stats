@@ -120,12 +120,16 @@ CONSTRAINT trainer_pkey PRIMARY KEY(id),
 CONSTRAINT UQ_trainer_unique_name UNIQUE(name)
 );
 
-CREATE TABLE subject_trainer(
-    subject_id SMALLINT,
-    trainer_id SMALLINT,
-CONSTRAINT subject_trainer_pkey PRIMARY KEY(subject_id, trainer_id),
-CONSTRAINT FK_subject_trainer_subject_id FOREIGN KEY(subject_id) REFERENCES subject(id),
-CONSTRAINT FK_subject_trainer_trainer_id FOREIGN KEY(trainer_id) REFERENCES trainer(id)
+CREATE TABLE subject_trainer_group(
+    id SERIAL,
+    subject_id SMALLINT NOT NULL,
+    trainer_id SMALLINT NOT NULL,
+    group_id SMALLINT,
+CONSTRAINT subject_trainer_group_pkey PRIMARY KEY(id),
+CONSTRAINT FK_subject_trainer_group_subject_id FOREIGN KEY(subject_id) REFERENCES subject(id),
+CONSTRAINT FK_subject_trainer_group_trainer_id FOREIGN KEY(trainer_id) REFERENCES trainer(id),
+CONSTRAINT FK_subject_trainer_group_group_id FOREIGN KEY(group_id) REFERENCES "group"(id),
+CONSTRAINT UQ_subject_trainer_group UNIQUE(subject_id, trainer_id, group_id)
 );
 
 COMMIT;
