@@ -43,14 +43,15 @@ CREATE VIEW public.forms_student AS
 CREATE VIEW public.forms_subject AS
     SELECT sb.id,
            sb.code,
-        CASE
-            WHEN tr.name IS NULL THEN sb.name::text
-            ELSE concat(sb.name, ' (', tr.name, ')')
-        END AS name,
-        dg.id AS degree_id,
-        dg.code AS degree_code,
-        dg.name AS degree_name,
-        tr.id AS trainer_id
+           CASE
+               WHEN tr.name IS NULL THEN sb.name::text
+               ELSE concat(sb.name, ' (', tr.name, ')')
+           END AS name,
+           dg.id AS degree_id,
+           dg.code AS degree_code,
+           dg.name AS degree_name,
+           tr.id AS trainer_id,
+           st.group_id
     FROM master.subject sb
         LEFT JOIN master.degree dg ON dg.id = sb.degree_id
         LEFT JOIN master.subject_trainer_group st ON st.subject_id = sb.id
