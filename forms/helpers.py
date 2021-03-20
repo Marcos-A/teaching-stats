@@ -200,8 +200,7 @@ def save_responses(user_evaluation):
                 e = Evaluation(timestamp=timezone.now(),
                                group_id=group_id,
                                trainer_id=trainer_id,
-                               subject_id=subject_id,
-                               level_id=level_id)
+                               subject_id=subject_id)
                 e.save()
 
                 # Save to forms_answer

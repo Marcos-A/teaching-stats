@@ -29,7 +29,7 @@ CREATE VIEW reports.answer AS
         LEFT JOIN master.question qu ON qu.id = an.question_id
         LEFT JOIN master.degree dg ON dg.id = su.degree_id
         LEFT JOIN master.department de ON de.id = dg.department_id
-        LEFT JOIN master.level lv ON lv.id = ev.level_id
+        LEFT JOIN master.level lv ON lv.id = dg.level_id
         LEFT JOIN master.topic tp ON tp.id = qu.topic_id;
 
 CREATE VIEW reports.participation AS

@@ -12,8 +12,7 @@ ALTER TABLE public.forms_participation
 ALTER TABLE public.forms_evaluation
     ADD CONSTRAINT FK_forms_evaluation_group_name FOREIGN KEY(group_id) REFERENCES master."group"(id),
     ADD CONSTRAINT FK_forms_evaluation_trainer_id FOREIGN KEY(trainer_id) REFERENCES master.trainer(id),
-    ADD CONSTRAINT FK_forms_evaluation_subject_id FOREIGN KEY(subject_id) REFERENCES master.subject(id),
-    ADD CONSTRAINT FK_forms_evaluation_level_id FOREIGN KEY(level_id) REFERENCES master.level(id);
+    ADD CONSTRAINT FK_forms_evaluation_subject_id FOREIGN KEY(subject_id) REFERENCES master.subject(id);
 
 -- Define views at public schema
 CREATE VIEW public.forms_student AS

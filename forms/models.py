@@ -8,7 +8,6 @@ class Evaluation(models.Model):
     group_id = models.SmallIntegerField(default=None)
     trainer_id = models.SmallIntegerField(null=True)
     subject_id = models.SmallIntegerField(default=None)
-    level_id = models.SmallIntegerField(default=None)
 
 class Answer(models.Model):
     id = models.AutoField(primary_key=True)
