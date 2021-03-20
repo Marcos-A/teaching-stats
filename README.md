@@ -1,5 +1,5 @@
 # School Evaluation Form
-Form about high school's services, counseling and enrolled subjects to be asnwered by the students. Students log in through their Google account. Responses are recorded in a PostgreSQL database. The application prevents responses from unauthorized students and duplicated submissions.
+Form about high school's services, counseling and enrolled subjects to be answered by the students. Students log in through their Google account. Responses are recorded in a PostgreSQL database. The application prevents responses from unauthorized students and duplicated submissions. Only the student's enrolled subjects are presented for its evaluation.
 
 There're different requirements and setup instructions depending on your running setup:
 
