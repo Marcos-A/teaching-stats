@@ -312,7 +312,6 @@ You can use the following repositories for that purpose:
 	WSGIDaemonProcess your-domain.com threads=15 python-path=/var/www/enquestes/enquestes-env python-path=/var/www/enquestes
 	WSGIProcessGroup your-domain.com
 	WSGIApplicationGroup {%GLOBAL}
-        WSGIRestrictEmbedded On
 
         WSGIScriptAlias / /var/www/enquestes/home/wsgi.py
 
