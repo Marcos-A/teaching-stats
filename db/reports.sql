@@ -10,6 +10,7 @@ BEGIN WORK;
 -- Define views at reports schema
 CREATE VIEW reports.answer AS
     SELECT ev."timestamp",
+        EXTRACT(YEAR FROM ev."timestamp") AS year,
         lv.name AS level,
         de.name AS department_name,
         dg.name AS degree_name,
