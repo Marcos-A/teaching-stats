@@ -20,6 +20,7 @@ CREATE VIEW reports.answer AS
         tp.name AS question_topic,
         qu.sort AS question_sort,
         qu.statement AS question_statement,
+        ty.name AS question_type,
         an.value AS answer_value
     FROM public.forms_evaluation ev
         LEFT JOIN master."group" gr ON gr.id = ev.group_id
@@ -30,7 +31,8 @@ CREATE VIEW reports.answer AS
         LEFT JOIN master.degree dg ON dg.id = su.degree_id
         LEFT JOIN master.department de ON de.id = dg.department_id
         LEFT JOIN master.level lv ON lv.id = dg.level_id
-        LEFT JOIN master.topic tp ON tp.id = qu.topic_id;
+        LEFT JOIN master.topic tp ON tp.id = qu.topic_id
+        LEFT JOIN master.type ty ON ty.id = qu.type_id;
 
 CREATE VIEW reports.participation AS
     SELECT pa."timestamp",
