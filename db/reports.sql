@@ -9,20 +9,20 @@ BEGIN WORK;
 
 -- Define views at reports schema
 CREATE VIEW reports.answer AS
-    SELECT ev."timestamp",
+    SELECT ev."timestamp" AS timestamp,
         EXTRACT(YEAR FROM ev."timestamp") AS year,
-        lv.name AS level,
-        de.name AS department_name,
-        dg.name AS degree_name,
-        gr.name AS group_name,
+        lv.code AS level,
+        de.name AS department,
+        dg.code AS degree,
+        gr.name AS group,
         su.code AS subject_code,
         su.name AS subject_name,
-        tr.name AS trainer_name,
-        tp.name AS question_topic,
+        tr.name AS trainer,
+        tp.name AS topic,
         qu.sort AS question_sort,
-        qu.statement AS question_statement,
         ty.name AS question_type,
-        an.value AS answer_value
+        qu.statement AS question_statement,
+        an.value AS value
     FROM public.forms_evaluation ev
         LEFT JOIN master."group" gr ON gr.id = ev.group_id
         LEFT JOIN master.trainer tr ON tr.id = ev.trainer_id
