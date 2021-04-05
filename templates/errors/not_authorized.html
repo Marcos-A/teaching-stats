@@ -16,10 +16,10 @@
     <div class="row justify-content-md-center">
         <div class="col-md-5 bg-grey p-3">
           <h1 style="text-align: center;">USUARI NO AUTORITZAT</h1>
-          <p style="text-align: center;">Has iniciat sessió amb el compte {{ user_email }}.<br>Malauradament no has estàs seleccionat per respondre aquesta enquesta.<br>Si penses que pot haver-hi algun error, si us plau, informa d'aquest problema al teu tutor/a.</p>
+          <p style="text-align: center;">Has iniciat sessió amb el compte {{ user_email }}.<br>Malauradament no esteu autoritzat per a accedir als resultats.<br>Si penses que pot haver-hi algun error, si us plau, poseu-vos en contacte amb els administradors de l'aplicació.</p>
           <br>
-          <p style="text-align: center;">La teva sessió ha sigut desconnectada, fes clic per iniciar sessió amb un altre compte.</p>
-          <a href="{% provider_login_url 'google' %}" class="btn btn btn-warning btn-lg btn-block" role="button" aria-pressed="true">Nou inici de sessió</a>
+          <p style="text-align: center;">La vostra sessió ha sigut desconnectada, feu clic per iniciar sessió amb un altre compte.</p>
+          <a href="{% provider_login_url 'google' next='/resultats/' %}" class="btn btn btn-warning btn-lg btn-block" role="button" aria-pressed="true">Nou inici de sessió</a>
         </div>
     </div>
   </div>

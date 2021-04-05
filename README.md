@@ -1,6 +1,8 @@
 # School Evaluation Form
 Form about high school's services, counseling and enrolled subjects to be answered by the students. Students log in through their Google account. Responses are recorded in a PostgreSQL database. The application prevents responses from unauthorized students and duplicated submissions. Only the student's enrolled subjects are presented for their evaluation.
 
+The application provides access to statistisal results powered by Metabase.
+
 There're different requirements and setup instructions depending on your running setup:
 
 A) Run from localhost
@@ -129,9 +131,26 @@ You can use the following repositories for that purpose:
 - [https://github.com/Marcos-A/school-form-db-population](https://github.com/Marcos-A/school-form-db-population)
 - [https://github.com/Marcos-A/school-form-import-students](https://github.com/Marcos-A/school-form-import-students)
 
-#### 10. Start Django server
+#### 10. Add your Metabase shared dashboards
+Make sure to add your shared links to the following files:
+- templates/analytics/adm_analytics.html
+- templates/analytics/counseling_analytics.html
+- templates/analytics/inf_analytics.html
+- templates/analytics/school_analytics.html
+- templates/analytics/subject_analytics.html
+
+In case your site is delivered through HTTPS, make sure your Metabase server operates from a HTTPS address as well, otherwise the iFrames will be blocked.
+
+#### 11. Start Django server
 Run:
 `python3 manage.py runserver`
+
+#### 12. Access
+
+- Access forms from:
+http://127.0.0.1:8000
+- Access analytics from:
+http://127.0.0.1:8000/resultats
 
 ---
 
@@ -279,6 +298,18 @@ DATABASES = {
         'HOST': 'name-of-your-host',
         'PORT':'your-database-connection-port',
         'CONN_MAX_AGE': 0,
+    },
+    'reports': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'name-of-your-database',
+        'OPTIONS': {
+        'options': '-c search_path=django,reports',
+        },
+        'USER': 'name-of-your-user',
+        'PASSWORD': 'password-of-your-user',
+        'HOST': 'name-of-your-host',
+        'PORT':'your-database-connection-port',
+        'CONN_MAX_AGE': 0,
     }
 }
 ```
@@ -344,3 +375,20 @@ You can use the following repositories for that purpose:
     
     4. Restart the server: `sudo systemctl restart apache2`
     
+#### 12. Add your Metabase shared dashboards
+Make sure to add your shared links to the following files:
+- templates/analytics/adm_analytics.html
+- templates/analytics/counseling_analytics.html
+- templates/analytics/inf_analytics.html
+- templates/analytics/school_analytics.html
+- templates/analytics/subject_analytics.html
+
+In case your site is delivered through HTTPS, make sure your Metabase server operates from a HTTPS address as well, otherwise the iFrames will be blocked.
+
+#### 13. Access
+
+- Access forms from:
+http://YOUR-DOMAIN or https://YOUR-DOMAIN if your site has a valid certificate
+- Access analytics from:
+http://YOUR-DOMAIN/resultats or https://YOUR-DOMAIN/resultats if your site has a valid certificate
+

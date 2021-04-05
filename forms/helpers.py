@@ -9,6 +9,16 @@ DB_SAVE_ERROR_LOG = os.path.join(os.path.dirname(__file__), '..', 'log', 'error_
 WRONG_ACCESS_ERROR_LOG = os.path.join(os.path.dirname(__file__), '..', 'log', 'error_log-wrong_access.txt')
 
 
+# Get authorized user email
+def get_user_email(auth_user_id):
+    cursor = connections['default'].cursor()
+    sql_get_user_email = "SELECT email FROM auth_user WHERE id = %s"
+    cursor.execute(sql_get_user_email, (auth_user_id,))
+    user_email = cursor.fetchone()[0]
+
+    return user_email
+    
+
 # Check if user has been selected to participate in the survey to obtain its information
 def check_user_survey_enrolment_data(email):
     cursor = connections['default'].cursor()

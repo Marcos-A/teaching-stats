@@ -2,7 +2,6 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from .forms import *
-from django.db import connections
 from django.contrib.auth import logout
 from .classes import UserEvaluation
 from .helpers import *
@@ -12,11 +11,8 @@ import json
 
 def user_checking(request):
     try:
-        cursor = connections['default'].cursor()
         auth_user_id = request.session['_auth_user_id']
-        sql_get_user_email = "SELECT email FROM auth_user WHERE id = %s"
-        cursor.execute(sql_get_user_email, (auth_user_id,))
-        user_email = cursor.fetchone()[0]
+        user_email = get_user_email(auth_user_id)
         request.session['user_email'] = user_email
  
         # Check if it's an address from the school    

@@ -7,6 +7,17 @@ GRANT ALL ON SCHEMA reports TO postgres;
 
 BEGIN WORK;
 
+-- Create tables at reports schema
+CREATE TABLE reports.staff(
+    id SERIAL,
+    email VARCHAR(75) NOT NULL,
+    name VARCHAR(50),
+    surname VARCHAR(50),
+    position VARCHAR(50),
+CONSTRAINT staff_pkey PRIMARY KEY(id),
+CONSTRAINT UQ_staff_unique_email UNIQUE(email)
+);
+
 -- Define views at reports schema
 CREATE VIEW reports.answer AS
     SELECT ev."timestamp" AS timestamp,
@@ -34,6 +45,33 @@ CREATE VIEW reports.answer AS
         LEFT JOIN master.level lv ON lv.id = dg.level_id
         LEFT JOIN master.topic tp ON tp.id = qu.topic_id
         LEFT JOIN master.type ty ON ty.id = qu.type_id;
+
+CREATE VIEW reports.answer_cf_mp AS
+    SELECT * FROM reports.answer
+    WHERE level = 'CF'
+    AND topic = 'Assignatura';
+
+CREATE VIEW reports.answer_dept_adm AS
+    SELECT *
+    FROM reports.answer
+    WHERE department = 'Administració i gestió';
+
+CREATE VIEW reports.answer_dept_adm_mp AS
+    SELECT *
+    FROM reports.answer
+    WHERE department = 'Administració i gestió'
+    AND topic = 'Assignatura';
+
+CREATE VIEW reports.answer_dept_inf AS
+    SELECT *
+    FROM reports.answer
+    WHERE department = 'Informàtica i comunicacions';
+
+CREATE VIEW reports.answer_dept_inf_mp AS
+    SELECT *
+    FROM reports.answer
+    WHERE department = 'Informàtica i comunicacions'
+    AND topic = 'Assignatura';
 
 CREATE VIEW reports.participation AS
     SELECT pa."timestamp",

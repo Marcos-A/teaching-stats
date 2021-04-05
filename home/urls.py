@@ -22,4 +22,5 @@ urlpatterns = [
     path('', include('forms.urls')),
     path('', include('social_app.urls')),
     path('', include('allauth.urls')),
+    path('', include('analytics.urls')), 
 ]

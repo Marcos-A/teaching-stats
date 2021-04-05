@@ -1,0 +1,27 @@
+{% load socialaccount %}
+{% load static %}
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
+
+</head>
+<body>
+  <div class="container text-dark mt-5">
+    <div class="row justify-content-md-center">
+      <div class="col-md-5 bg-grey p-3">
+        <h1 style="text-align: center;">USUARI NO IDENTIFICAT</h1>
+            <p style="text-align: center;">Necessiteu iniciar la sessió correctament per poder accedir als resultats.</p>
+            <br>
+            <p style="text-align: center;">Feu clic per iniciar sessió amb el vostre compte.</p>
+            <a href="{% provider_login_url 'google' next='/resultats/' %}" class="btn btn btn-warning btn-lg btn-block" role="button" aria-pressed="true">Nou inici de sessió</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

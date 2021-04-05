@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     # apps
     'forms.apps.FormsConfig',
     'social_app.apps.SocialAppConfig',
+    'analytics.apps.AnalyticsConfig',
 ]
 
 MIDDLEWARE = [
@@ -103,6 +104,18 @@ DATABASES = {
         'NAME': 'YOUR-DATABASE',
         'OPTIONS': {
         'options': '-c search_path=django,master',
+        },
+        'USER': 'YOUR-USER',
+        'PASSWORD': 'YOUR-PASSWORD',
+        'HOST': 'YOUR-HOST',
+        'PORT':'YOUR-PORT',
+        'CONN_MAX_AGE': 0,
+    },
+    'reports': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'YOUR-DATABASE',
+        'OPTIONS': {
+        'options': '-c search_path=django,reports',
         },
         'USER': 'YOUR-USER',
         'PASSWORD': 'YOUR-PASSWORD',
