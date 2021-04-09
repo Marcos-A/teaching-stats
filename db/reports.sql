@@ -20,7 +20,8 @@ CONSTRAINT UQ_staff_unique_email UNIQUE(email)
 
 -- Define views at reports schema
 CREATE VIEW reports.answer AS
-    SELECT ev."timestamp" AS timestamp,
+    SELECT ev.id AS evaluation_id,
+        ev."timestamp" AS timestamp,
         EXTRACT(YEAR FROM ev."timestamp") AS year,
         lv.code AS level,
         de.name AS department,
