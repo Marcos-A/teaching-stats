@@ -31,7 +31,7 @@ __pycache__/
 */__pycache__/
 
 # Static directory created by Django through 'python manage.py collectstatic'
-static/
+/static/
 
 # Sensitive data
 log/*
