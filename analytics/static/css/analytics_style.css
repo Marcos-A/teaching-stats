@@ -100,3 +100,14 @@ a.logged_out {
     color: #3B4460;
     background-color: #ffffff;
 }
+
+#warning-message{
+    position: absolute;
+    top: 43.5%;
+    left: 50%;
+    width: 500px;
+    height: 300px;
+    margin-left: -250px;
+    margin-top: -150px;
+
+}
