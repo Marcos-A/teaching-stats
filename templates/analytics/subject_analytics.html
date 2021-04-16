@@ -1,30 +1,13 @@
 {% extends 'analytics/base_analytics.html' %}
 
 {% block content %}
+
 <iframe
     id="dashboard"
-    src="https://metabase.marcos-a.com/public/dashboard/60522534-ab09-49d2-ae28-75396fcbc87d"
+    src="YOUR-DASHBOARD-SHARED-URL"
     frameborder="0"
     style="overflow:hidden;overflow-x:hidden;overflow-y:hidden;height:100%;width:100%;position:absolute;top:0px;left:0px;right:0px;bottom:0px" height="100%" width="100%"
     allowtransparency
 ></iframe>
-
-<script type="text/javascript">
-    var copySharingLink = function() {
-        var dashboardUrl = document.createElement("input");
-        dashboardUrl.className = 'dashboardUrl'
-        document.body.appendChild(dashboardUrl);
-        dashboardUrl.value = document.getElementById("dashboard").src;
-        dashboardUrl.select();
-        document.execCommand("copy");
-        document.body.removeChild(dashboardUrl);
-    };
-
-    document.getElementById('copyLink').addEventListener('click', function() {
-    copySharingLink();
-
-    alert("Enllaç copiat. Si us plau, compartiu-lo amb responsabilitat.");
-    });
-</script>
 
 {% endblock %}

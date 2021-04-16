@@ -65,6 +65,22 @@
         {% endblock %}
         </div>
     </div>
+    <script type="text/javascript">
+        var copySharingLink = function() {
+            var dashboardUrl = document.createElement("input");
+            dashboardUrl.className = 'dashboardUrl'
+            document.body.appendChild(dashboardUrl);
+            dashboardUrl.value = document.getElementById("dashboard").src;
+            dashboardUrl.select();
+            document.execCommand("copy");
+            document.body.removeChild(dashboardUrl);
+        };
 
+        document.getElementById('copyLink').addEventListener('click', function() {
+        copySharingLink();
+
+        alert("Enllaç copiat. Si us plau, compartiu-lo amb responsabilitat.");
+        });
+    </script>
 </body>
 </html>
