@@ -9,12 +9,14 @@
     <link href="https://fonts.googleapis.com/css?family=Quicksand:300,500" rel="stylesheet">
     <!-- Bootstrap CSS CDN -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <!-- Bootstrap CSS Alert -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <!-- Our Custom CSS -->
     <link rel="stylesheet" type="text/css" href="{% static 'css/analytics_style.css' %}" />
 
     <title>Resultats enquestes El Puig</title>
-
 </head>
+
 <body>
    <div class="wrapper">
         <!-- Sidebar  -->
@@ -56,6 +58,7 @@
                     </li>
                 </ul>
             </div>
+
             <img style="width: 70%; display: block; left: 0; right: 0; margin: auto; position: absolute; bottom: 3%;" src="{% static 'img/logo_white.png' %}" alt="logo_white">
         </nav>
 
@@ -65,6 +68,7 @@
         {% endblock %}
         </div>
     </div>
+
     <script type="text/javascript">
         var copySharingLink = function() {
             var dashboardUrl = document.createElement("input");
@@ -75,11 +79,17 @@
             document.execCommand("copy");
             document.body.removeChild(dashboardUrl);
         };
-
         document.getElementById('copyLink').addEventListener('click', function() {
         copySharingLink();
+        });
 
-        alert("Enllaç copiat. Si us plau, compartiu-lo amb responsabilitat.");
+        $(document).ready(function() {
+            $("#warning-alert").hide();
+            $("#copyLink").click(function showAlert() {
+                $("#warning-alert").fadeTo(1500, 500).slideUp(500, function() {
+                    $("#warning-alert").slideUp(500);
+                });
+            });
         });
     </script>
 </body>
