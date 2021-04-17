@@ -68,7 +68,14 @@
         {% endblock %}
         </div>
     </div>
-
+    <div id="warning-message">
+        <div class="alert alert-warning text-center" id="warning-alert">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong>Enllaç copiat!</strong> Si us plau, compartiu-lo amb responsabilitat.
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>    
     <script type="text/javascript">
         var copySharingLink = function() {
             var dashboardUrl = document.createElement("input");
@@ -82,7 +89,6 @@
         document.getElementById('copyLink').addEventListener('click', function() {
         copySharingLink();
         });
-
         $(document).ready(function() {
             $("#warning-alert").hide();
             $("#copyLink").click(function showAlert() {

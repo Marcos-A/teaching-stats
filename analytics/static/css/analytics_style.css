@@ -104,10 +104,10 @@ a.logged_out {
 #warning-message{
     position: absolute;
     top: 43.5%;
-    left: 50%;
+    left: calc(125px + 50%);
     width: 500px;
     height: 300px;
     margin-left: -250px;
-    margin-top: -150px;
-
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
 }
