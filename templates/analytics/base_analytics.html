@@ -26,21 +26,21 @@
             </div>
 
             <div class="menu">
-                <ul class="list-unstyled components">
+                <ul id="menuList" class="list-unstyled components">
                     <li>
-                        <a href="/school_analytics"><b>Centre</b></a>
+                        <a href="/school_analytics" class="menuButton"><b>Centre</b></a>
                     </li>
                     <li>
-                        <a href="/counseling_analytics"><b>CF Tutoria</b></a>
+                        <a href="/counseling_analytics" class="menuButton"><b>CF Tutoria</b></a>
                     </li>
                     <li>
-                        <a href="/subject_analytics"><b>CF MP</b></a>
+                        <a href="/subject_analytics" class="menuButton"><b>CF MP</b></a>
                     </li>
                     <li>
-                        <a href="/adm_analytics"><b>Dept. Administració</b></a>
+                        <a href="/adm_analytics" class="menuButton"><b>Dept. Administració</b></a>
                     </li>
                     <li>
-                        <a href="/inf_analytics"><b>Dept. Informàtica</b></a>
+                        <a href="/inf_analytics" class="menuButton"><b>Dept. Informàtica</b></a>
                     </li>
                 </ul>
             </div>
@@ -77,6 +77,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>    
     <script type="text/javascript">
+        // Copy sharing link
         var copySharingLink = function() {
             var dashboardUrl = document.createElement("input");
             dashboardUrl.className = 'dashboardUrl'
@@ -89,12 +90,23 @@
         document.getElementById('copyLink').addEventListener('click', function() {
         copySharingLink();
         });
+        // Display warning alert when sharing link is copied
         $(document).ready(function() {
             $("#warning-alert").hide();
             $("#copyLink").click(function showAlert() {
                 $("#warning-alert").fadeTo(1500, 500).slideUp(500, function() {
                     $("#warning-alert").slideUp(500);
                 });
+            });
+        });
+        // Set navbar current link as active css class
+        $(function(){
+            var current = location.pathname;
+            $('#menuList li a').each(function(){
+                var $this = $(this);
+                if(current.includes($this.attr('href'))) {
+                    $this.addClass('active');
+                };
             });
         });
     </script>

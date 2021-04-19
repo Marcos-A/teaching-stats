@@ -47,6 +47,11 @@ a:focus {
 }
 
 .menu a:hover {
+    color: #3b4460;
+    background-color: #e5acb6;
+}
+
+.active {
     color: #3B4460;
     background-color: #ffffff;
 }
@@ -58,7 +63,6 @@ a:focus {
 .button a:hover {
     color: #ffffff;
     background-color: #3B4460;
-    ;
 }
 
 .button-link a:hover {
