@@ -133,11 +133,11 @@ You can use the following repositories for that purpose:
 
 #### 10. Add your Metabase shared dashboards
 Make sure to add your shared links to the following files:
-- templates/analytics/adm_analytics.html
-- templates/analytics/counseling_analytics.html
-- templates/analytics/inf_analytics.html
-- templates/analytics/school_analytics.html
-- templates/analytics/subject_analytics.html
+- /templates/analytics/adm_analytics.html
+- /templates/analytics/counseling_analytics.html
+- /templates/analytics/inf_analytics.html
+- /templates/analytics/school_analytics.html
+- /templates/analytics/subject_analytics.html
 
 In case your site is delivered through HTTPS, make sure your Metabase server operates from a HTTPS address as well, otherwise the iFrames will be blocked.
 
@@ -151,6 +151,9 @@ Run:
 http://127.0.0.1:8000
 - Access analytics from:
 http://127.0.0.1:8000/resultats
+
+#### 13. Open/close surveys
+Follow the instructions at /social_app/urls.py to open surveys during surveying season or closing them afterwards.
 
 ---
 
@@ -377,11 +380,11 @@ You can use the following repositories for that purpose:
     
 #### 12. Add your Metabase shared dashboards
 Make sure to add your shared links to the following files:
-- templates/analytics/adm_analytics.html
-- templates/analytics/counseling_analytics.html
-- templates/analytics/inf_analytics.html
-- templates/analytics/school_analytics.html
-- templates/analytics/subject_analytics.html
+- /templates/analytics/adm_analytics.html
+- /templates/analytics/counseling_analytics.html
+- /templates/analytics/inf_analytics.html
+- /templates/analytics/school_analytics.html
+- /templates/analytics/subject_analytics.html
 
 In case your site is delivered through HTTPS, make sure your Metabase server operates from a HTTPS address as well, otherwise the iFrames will be blocked.
 
@@ -392,3 +395,5 @@ http://YOUR-DOMAIN or https://YOUR-DOMAIN if your site has a valid certificate
 - Access analytics from:
 http://YOUR-DOMAIN/resultats or https://YOUR-DOMAIN/resultats if your site has a valid certificate
 
+#### 14. Open/close surveys
+Follow the instructions at /social_app/urls.py to open surveys during surveying season or closing them afterwards.
