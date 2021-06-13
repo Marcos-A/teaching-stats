@@ -384,15 +384,15 @@ You can use the following repositories for that purpose:
 </VirtualHost>
 ```
 
-    2. To enable your configuration file, run: `sudo a2ensite school-form.conf`.
-    3. Make sure you assign the correct permissions:
+   2. To enable your configuration file, run: `sudo a2ensite school-form.conf`.
+   3. Make sure you assign the correct permissions:
     
-    ```
-    sudo chown -R YOUR-USER:www-data /var/www/enquestes
-    sudo chmod -R 775 /var/www/enquestes
-    ```
+```
+sudo chown -R YOUR-USER:www-data /var/www/enquestes
+sudo chmod -R 775 /var/www/enquestes
+```
     
-    4. Restart the server: `sudo systemctl restart apache2`
+   4. Restart the server: `sudo systemctl restart apache2`
     
 #### 13. Add your Metabase shared dashboards
 Make sure to add your shared links to the following files:
