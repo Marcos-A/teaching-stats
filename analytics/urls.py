@@ -12,8 +12,8 @@ urlpatterns = [
     path('subject_analytics/', views.subject_analytics, name='subject_analytics'),
     path('adm_analytics/', views.adm_analytics, name='adm_analytics'),
     path('inf_analytics/', views.inf_analytics, name='inf_analytics'),
+    path('download_reports/', views.download_reports, name='download_reports'),
     path('logged_out/', views.logged_out, name='logged_out'),
     path('unidentified_staff/', views.unidentified_staff, name='unidentified_staff'),
     path('not_authorized<str:user_email>/', views.not_authorized, name='not_authorized'),
 ]
-

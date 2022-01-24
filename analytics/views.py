@@ -1,9 +1,12 @@
+from analytics import report_from_postgresql
 from json import dumps
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.contrib.auth import logout
 from .helpers import *
+from .report_from_postgresql import *
+import os
 
 # Create your views here.
 def staff_checking(request):
@@ -68,6 +71,20 @@ def inf_analytics(request):
 
     except:
         return HttpResponseRedirect(reverse('analytics:unidentified_staff'))
+
+
+def download_reports(request):
+    try:
+        generate_zip()
+        file_path = os.path.join(os.path.dirname(__file__), '..', folder, "informes_CF.zip")
+        if os.path.exists(file_path):
+            with open(file_path, 'rb') as fh:
+                response = HttpResponse(fh.read(), content_type="application/zip")
+                response['Content-Disposition'] = 'inline; filename=' + os.path.basename(file_path)
+                return response
+        raise Http404
+    except:
+        return HttpResponseRedirect(reverse('analytics:unidentified_staff'))   
 
 
 def logged_out(request):

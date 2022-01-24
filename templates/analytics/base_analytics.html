@@ -51,6 +51,13 @@
                     </li>
                 </ul>
             </div>
+            <div class="button button-download">
+                <ul class="list-unstyled CTAs">
+                    <li>
+                        <a href="/download_reports" id="downloadReports" class="logged_out"><b>Descarregar informes</b></a>
+                    </li>
+                </ul>
+            </div>
             <div class="button">
                 <ul class="list-unstyled CTAs">
                     <li>
@@ -72,6 +79,12 @@
         <div class="alert alert-warning text-center" id="warning-alert">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
             <strong>Enllaç copiat!</strong> Si us plau, compartiu-lo amb responsabilitat.
+        </div>
+    </div>
+    <div id="warning-message">
+        <div class="alert alert-warning text-center" id="advice-alert">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            Si us plau, un cop feu clic al botó de descàrrega<br><strong>espereu mentre els informes es generen</strong>.
         </div>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -96,6 +109,15 @@
             $("#copyLink").click(function showAlert() {
                 $("#warning-alert").fadeTo(1500, 500).slideUp(500, function() {
                     $("#warning-alert").slideUp(500);
+                });
+            });
+        });
+        // Display warning alert when reports are being arranged to be downloaded
+        $(document).ready(function() {
+            $("#advice-alert").hide();
+            $("#downloadReports").hover(function showAdvice() {
+                $("#advice-alert").fadeTo(2500, 500).slideUp(500, function() {
+                    $("#advice-alert").slideUp(500);
                 });
             });
         });
