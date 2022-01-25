@@ -202,3 +202,8 @@ SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 # Force new social account login at start
 
 SOCIAL_AUTH_GOOGLE_OAUTH2_AUTH_EXTRA_ARGUMENTS = { 'prompt': 'select_account' }
+
+
+# Added due to package django-allauth 0.47.0 update backwards incompatible changes
+
+SOCIALACCOUNT_LOGIN_ON_GET = True

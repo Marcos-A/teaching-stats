@@ -16,9 +16,9 @@ sudo apt install apache2
 sudo apt-get install python3	
 sudo apt-get install libpq-dev python-dev
 sudo apt install python3-pip
-pip3 install django
-pip3 install psycopg2
-pip3 install django-allauth
+pip3 install django==4.0.1
+pip3 install django-allauth==0.47.0
+pip3 install psycopg2-binary==2.9.3
 ```
 
 #### 1. Download the project to your /var/www folder.
@@ -134,7 +134,7 @@ You can leave the "Key" field empty.
     4. Add 127.0.0.1:8000 to Chosen sites and save the new settings.
 
 #### 9. Set up /home/settings.py:
-    1. Add your secret key.
+    1. Add your secret key. You can generate one running from your terminal the following instruction: `python -c 'from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())`.
     2. Add 127.0.0.1 between single quotes to the list of ALLOWED_HOSTS, e.g. `ALLOWED_HOSTS = ['127.0.0.1']`; separate them with commas if there's more than one. Adding a dot like in '.mydomain.com' will work as a wildcard to include multiple subdomains.
     3. Make sure SITE_ID has the correct id of your site. You can obtain the proper id with a simple query to your database: `SELECT * FROM django_site WHERE name = '127.0.0.1:8000'`.
 
@@ -186,9 +186,9 @@ sudo apt install virtualenv
 4. Install:
 
 ```
-pip install django
-pip install django-allauth
-pip install psycopg2-binary
+pip install django==4.0.1
+pip install django-allauth==0.47.0
+pip install psycopg2-binary==2.9.3
 ```
 
 #### 2. Set up your database connection:
@@ -329,7 +329,7 @@ except Exception:
 
 
 #### 10. Set up /home/settings.py:
-    1. Add your secret key.
+    1. Add your secret key. You can generate one running from your terminal the following instruction: `python -c 'from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())`.
     2. Add your domain between single quotes to the list of ALLOWED_HOSTS, e.g. `ALLOWED_HOSTS = ['mydomain.com']`; separate them with commas if there's more than one. Adding a dot like in '.mydomain.com' will work as a wildcard to include multiple subdomains.
     3. Make sure SITE_ID has the correct id of your site. You can obtain the proper id with a simple query to your database: `SELECT * FROM django_site WHERE name = 'your-domain.com'`.
     
