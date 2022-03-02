@@ -1,9 +1,5 @@
 -- Create master schema
-DROP SCHEMA IF EXISTS master CASCADE;
-
-CREATE SCHEMA IF NOT EXISTS master AUTHORIZATION postgres;
-
-GRANT ALL ON SCHEMA master TO postgres;
+CREATE SCHEMA IF NOT EXISTS master;
 
 SET search_path TO master;
 
