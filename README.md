@@ -24,7 +24,7 @@ pip3 install psycopg2-binary==2.9.3
 #### 1. Download the project to your /var/www folder.
 
 #### 2. Set up your database connection:
-1. Make sure you have a database created with PostgreSQL featuring 3 different schemas: "master", "public" and "reports".
+1. Make sure you have a database created with PostgreSQL featuring 3 different schemas: "master", "public" and "reports". Assign the proper database management privileges to a user of your choice.
 2. At /home/settings.py set up your PostgreSQL database connection configuration:    
 
 ```
@@ -192,7 +192,7 @@ pip install psycopg2-binary==2.9.3
 ```
 
 #### 2. Set up your database connection:
-1. Make sure you have a database created with PostgreSQL featuring 3 different schemas: "master", "public" and "reports".
+1. Make sure you have a database created with PostgreSQL featuring 3 different schemas: "master", "public" and "reports". Assign the proper database management privileges to a user of your choice.
 2. At /home/settings.py set up your PostgreSQL database connection configuration:    
 
 ```
