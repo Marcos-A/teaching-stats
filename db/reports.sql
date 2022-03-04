@@ -1,9 +1,7 @@
 -- Create reports schema
-DROP SCHEMA IF EXISTS reports CASCADE;
+CREATE SCHEMA IF NOT EXISTS reports;
 
-CREATE SCHEMA IF NOT EXISTS reports AUTHORIZATION postgres;
-
-GRANT ALL ON SCHEMA reports TO postgres;
+SET search_path TO reports;
 
 BEGIN WORK;
 
