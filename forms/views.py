@@ -56,6 +56,9 @@ def subject_evaluation(request):
         ue = request.session['user_evaluation']
         user_subjects_info = get_subjects_list_of_dicts(ue['subjects'], ue['degree_id'], ue['group_id'])
 
+        if len(user_subjects_info) == 0: 
+            return HttpResponseRedirect(reverse('forms:empty_survey'))
+
         SubjectsFormset = formset_factory(EvaluateSubjectCF, extra=len(user_subjects_info))
         formset = SubjectsFormset(request.POST or None)
         
@@ -169,3 +172,7 @@ def duplicated_answer(request, user_email):
 def unidentified_user(request):
     log_error('unidentified_user')
     return render(request, 'errors/unidentified_user.html')
+
+def empty_survey(request):
+    log_error('empty_survey')
+    return render(request, 'errors/empty_survey.html')
