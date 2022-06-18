@@ -68,57 +68,59 @@ def check_previous_answer(user_id):
 
 # Turn string of subjects as a list of dicts with the complete info about every subject
 def get_subjects_list_of_dicts(string_of_subjects, degree_id, group_id):
-    subjects_list_of_dicts =  []    
-    if string_of_subjects is None: return subjects_list_of_dicts
+    subjects_list_of_dicts =  []
 
-    subjects_list = [subject.replace(' ', '') for subject in string_of_subjects.split(',')
-                     if 'Tutoria' not in subject and 'Centre' not in subject]
-    
-    sql_get_subject_information = """
-                                    SELECT * FROM (
-                                        SELECT id, code, name, degree_id, degree_code, degree_name, trainer_id, %s AS group_id
-                                        FROM public.forms_subject 
-                                        WHERE code = %s and degree_id= %s AND group_id IS NULL
-                                        UNION
-                                        SELECT *
-                                        FROM public.forms_subject 
-                                        WHERE code = %s and degree_id=%s AND group_id = %s
-                                    ) T WHERE group_id = %s
-                                    ORDER BY code, name;
-                                  """
-    
-    for subject in subjects_list:
-        cursor = connections['default'].cursor()
-        cursor.execute(sql_get_subject_information, (group_id, subject, degree_id, subject, degree_id, group_id, group_id,))
-        column_names = [column[0] for column in cursor.description]
-        user_enrolments = cursor.fetchall()
-        for enrolment in user_enrolments:
-            if enrolment is not None:
-                s_dict = {}
+    if string_of_subjects is None:
+        return subjects_list_of_dicts
+    else:
+        subjects_list = [subject.replace(' ', '') for subject in string_of_subjects.split(',')
+                        if 'Tutoria' not in subject and 'Centre' not in subject]
+        
+        sql_get_subject_information = """
+                                        SELECT * FROM (
+                                            SELECT id, code, name, degree_id, degree_code, degree_name, trainer_id, %s AS group_id
+                                            FROM public.forms_subject 
+                                            WHERE code = %s and degree_id= %s AND group_id IS NULL
+                                            UNION
+                                            SELECT *
+                                            FROM public.forms_subject 
+                                            WHERE code = %s and degree_id=%s AND group_id = %s
+                                        ) T WHERE group_id = %s
+                                        ORDER BY code, name;
+                                      """
+        
+        for subject in subjects_list:
+            cursor = connections['default'].cursor()
+            cursor.execute(sql_get_subject_information, (group_id, subject, degree_id, subject, degree_id, group_id, group_id,))
+            column_names = [column[0] for column in cursor.description]
+            user_enrolments = cursor.fetchall()
+            for enrolment in user_enrolments:
+                if enrolment is not None:
+                    s_dict = {}
 
-                id_position = column_names.index('id')
-                trainer_id_position = column_names.index('trainer_id')
-                # Subject without assigned trainer
-                if enrolment[trainer_id_position] is None:
-                    id_trainer_id = str(enrolment[id_position])+\
-                                    '.' +\
-                                    '0'
-                # Subject with assigned trainer
-                else:
-                    id_trainer_id = str(enrolment[id_position])+\
-                                    '.' +\
-                                    str(enrolment[trainer_id_position])
-                s_dict['subject_id.trainer_id'] = id_trainer_id
+                    id_position = column_names.index('id')
+                    trainer_id_position = column_names.index('trainer_id')
+                    # Subject without assigned trainer
+                    if enrolment[trainer_id_position] is None:
+                        id_trainer_id = str(enrolment[id_position])+\
+                                        '.' +\
+                                        '0'
+                    # Subject with assigned trainer
+                    else:
+                        id_trainer_id = str(enrolment[id_position])+\
+                                        '.' +\
+                                        str(enrolment[trainer_id_position])
+                    s_dict['subject_id.trainer_id'] = id_trainer_id
 
-                code_position = column_names.index('code')
-                s_dict['subject_code'] = enrolment[code_position]
+                    code_position = column_names.index('code')
+                    s_dict['subject_code'] = enrolment[code_position]
 
-                name_position = column_names.index('name')
-                s_dict['subject_name'] = enrolment[name_position]
+                    name_position = column_names.index('name')
+                    s_dict['subject_name'] = enrolment[name_position]
 
-                subjects_list_of_dicts.append(s_dict)
+                    subjects_list_of_dicts.append(s_dict)
 
-    return subjects_list_of_dicts
+        return subjects_list_of_dicts
 
 
 # Get subject id from 'master' schema of database

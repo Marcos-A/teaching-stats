@@ -41,9 +41,12 @@ def user_checking(request):
                     return HttpResponseRedirect(reverse('forms:duplicated_answer', args=(user_email,)))
                 else:
                     request.session['user_evaluation'] = json.loads(ue.toJson())
-                    # ESO-BTX students only evaluate 'Centre'
-                    if 'cf' in user_data['user_level_code'].lower():
+                    if ('cf' in user_data['user_level_code'].lower() and len(user_data['user_level_code'].split(',')) > 2):
                         return HttpResponseRedirect(reverse('forms:subject_evaluation'))
+                    # CF students with no enrolled subjects (e.g. enrolled in FCT only) evaluate 'Tutoria' and 'Centre'
+                    elif ('cf' in user_data['user_level_code'].lower()):
+                        return HttpResponseRedirect(reverse('forms:counseling_evaluation'))
+                    # ESO-BTX students evaluate 'Centre' only
                     else:
                         return HttpResponseRedirect(reverse('forms:school_evaluation'))
         
@@ -56,28 +59,28 @@ def subject_evaluation(request):
         ue = request.session['user_evaluation']
         user_subjects_info = get_subjects_list_of_dicts(ue['subjects'], ue['degree_id'], ue['group_id'])
 
-        if len(user_subjects_info) == 0: 
+        if not user_subjects_info: 
             return HttpResponseRedirect(reverse('forms:empty_survey'))
+        else:
+            SubjectsFormset = formset_factory(EvaluateSubjectCF, extra=len(user_subjects_info))
+            formset = SubjectsFormset(request.POST or None)
+            
+            # Pass additional argument with subject info, instantiate in template with subform.initial
+            for subform, data in zip(formset.forms, user_subjects_info):
+                subform.initial = data
 
-        SubjectsFormset = formset_factory(EvaluateSubjectCF, extra=len(user_subjects_info))
-        formset = SubjectsFormset(request.POST or None)
-        
-        # Pass additional argument with subject info, instantiate in template with subform.initial
-        for subform, data in zip(formset.forms, user_subjects_info):
-            subform.initial = data
+            subjects_evaluations = {}
+            if formset.is_valid():
+                for pos, form in enumerate(formset):
+                    subjects_evaluations[user_subjects_info[pos]['subject_id.trainer_id']] = form.cleaned_data
 
-        subjects_evaluations = {}
-        if formset.is_valid():
-            for pos, form in enumerate(formset):
-                subjects_evaluations[user_subjects_info[pos]['subject_id.trainer_id']] = form.cleaned_data
+                ue['evaluations'] = subjects_evaluations
+                request.session['user_evaluation'] = ue
 
-            ue['evaluations'] = subjects_evaluations
-            request.session['user_evaluation'] = ue
+                return HttpResponseRedirect(reverse('forms:counseling_evaluation'))
 
-            return HttpResponseRedirect(reverse('forms:counseling_evaluation'))
-
-        context = {'formset': formset}
-        return render(request, 'forms/subject_evaluation.html', context)
+            context = {'formset': formset}
+            return render(request, 'forms/subject_evaluation.html', context)
     
     except:
         return HttpResponseRedirect(reverse('forms:unidentified_user'))
@@ -172,6 +175,7 @@ def duplicated_answer(request, user_email):
 def unidentified_user(request):
     log_error('unidentified_user')
     return render(request, 'errors/unidentified_user.html')
+
 
 def empty_survey(request):
     log_error('empty_survey')
