@@ -41,12 +41,11 @@ def user_checking(request):
                     return HttpResponseRedirect(reverse('forms:duplicated_answer', args=(user_email,)))
                 else:
                     request.session['user_evaluation'] = json.loads(ue.toJson())
-                    if ('cf' in user_data['user_level_code'].lower() and len(user_data['user_level_code'].split(',')) > 2):
+
+                    if check_student_subjects_enrollment(user_data['user_subjects']):
                         return HttpResponseRedirect(reverse('forms:subject_evaluation'))
-                    # CF students with no enrolled subjects (e.g. enrolled in FCT only) evaluate 'Tutoria' and 'Centre'
-                    elif ('cf' in user_data['user_level_code'].lower()):
+                    elif 'tutoria' in user_data['user_subjects'].lower():
                         return HttpResponseRedirect(reverse('forms:counseling_evaluation'))
-                    # ESO-BTX students evaluate 'Centre' only
                     else:
                         return HttpResponseRedirect(reverse('forms:school_evaluation'))
         
@@ -77,7 +76,10 @@ def subject_evaluation(request):
                 ue['evaluations'] = subjects_evaluations
                 request.session['user_evaluation'] = ue
 
-                return HttpResponseRedirect(reverse('forms:counseling_evaluation'))
+                if 'tutoria' in ue['user_subjects'].lower():
+                    return HttpResponseRedirect(reverse('forms:counseling_evaluation'))
+                else:
+                    return HttpResponseRedirect(reverse('forms:school_evaluation'))
 
             context = {'formset': formset}
             return render(request, 'forms/subject_evaluation.html', context)

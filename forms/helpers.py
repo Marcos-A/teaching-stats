@@ -123,6 +123,15 @@ def get_subjects_list_of_dicts(string_of_subjects, degree_id, group_id):
         return subjects_list_of_dicts
 
 
+# Check if the student is enrolled in any subject
+def check_student_subjects_enrollment(user_subjects):
+    enrollment_list = user_subjects.split(',')
+    for enrollment in enrollment_list:
+        if 'tutoria' not in enrollment.lower() and enrollment.lower() != 'centre':
+            return True
+    return False
+
+
 # Get subject id from 'master' schema of database
 def get_subject_id(subject_code, degree_id):
     cursor = connections['master'].cursor()
