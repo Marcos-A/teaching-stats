@@ -68,6 +68,9 @@ def check_previous_answer(user_id):
 
 # Turn string of subjects as a list of dicts with the complete info about every subject
 def get_subjects_list_of_dicts(string_of_subjects, degree_id, group_id):
+    subjects_list_of_dicts =  []    
+    if string_of_subjects is None: return subjects_list_of_dicts
+
     subjects_list = [subject.replace(' ', '') for subject in string_of_subjects.split(',')
                      if 'Tutoria' not in subject and 'Centre' not in subject]
     
@@ -83,7 +86,7 @@ def get_subjects_list_of_dicts(string_of_subjects, degree_id, group_id):
                                     ) T WHERE group_id = %s
                                     ORDER BY code, name;
                                   """
-    subjects_list_of_dicts =  []
+    
     for subject in subjects_list:
         cursor = connections['default'].cursor()
         cursor.execute(sql_get_subject_information, (group_id, subject, degree_id, subject, degree_id, group_id, group_id,))
@@ -249,6 +252,10 @@ def log_error(error, data='no data'):
     elif error == 'unidentified_user':
         with open(WRONG_ACCESS_ERROR_LOG, 'a') as error_log:
             error_log.write("%s, %s, %s" % (str(timezone.now()), 'unidentified_user', data) + "\n")
+
+    elif error == 'empty_survey':
+        with open(WRONG_ACCESS_ERROR_LOG, 'a') as error_log:
+            error_log.write("%s, %s, %s" % (str(timezone.now()), 'empty_survey', data) + "\n")
 
     # Database save error
     else:
