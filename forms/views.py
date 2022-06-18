@@ -76,7 +76,7 @@ def subject_evaluation(request):
                 ue['evaluations'] = subjects_evaluations
                 request.session['user_evaluation'] = ue
 
-                if 'tutoria' in ue['user_subjects'].lower():
+                if 'tutoria' in ue['subjects'].lower():
                     return HttpResponseRedirect(reverse('forms:counseling_evaluation'))
                 else:
                     return HttpResponseRedirect(reverse('forms:school_evaluation'))
