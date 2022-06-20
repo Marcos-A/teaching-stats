@@ -219,7 +219,7 @@ class EvaluateSubjectCF(forms.Form):
                                                    "<small><i>Resposta obligatòria.</i></small></p>"),
                                    required=True,
                                    widget=forms.RadioSelect(
-                                   attrs={'class':'form-control', 'class':'form-check-inline'},
+                                   attrs={'class':'form-control', 'class':'form-check-inline', 'required':'required'},
                                    choices=[('1', 1), ('2', 2), ('3', 3),('4', 4), ('5', 5), ('6', 6),
                                             ('7', 7), ('8', 8), ('9', 9), ('10', 10)]))
          
@@ -227,7 +227,7 @@ class EvaluateSubjectCF(forms.Form):
                                                    "<small><i>Resposta obligatòria.</i></small></p>"),
                                    required=True,
                                    widget=forms.RadioSelect(
-                                   attrs={'class':'form-control', 'class':'form-check-inline'},
+                                   attrs={'class':'form-control', 'class':'form-check-inline', 'required':'required'},
                                    choices=[('1', 1), ('2', 2), ('3', 3),('4', 4), ('5', 5), ('6', 6),
                                             ('7', 7), ('8', 8), ('9', 9), ('10', 10)]))
          
@@ -235,7 +235,7 @@ class EvaluateSubjectCF(forms.Form):
                                                    "<small><i>Resposta obligatòria.</i></small></p>"),
                                    required=True,
                                    widget=forms.RadioSelect(
-                                   attrs={'class':'form-control', 'class':'form-check-inline'},
+                                   attrs={'class':'form-control', 'class':'form-check-inline', 'required':'required'},
                                    choices=[('1', 1), ('2', 2), ('3', 3),('4', 4), ('5', 5), ('6', 6),
                                             ('7', 7), ('8', 8), ('9', 9), ('10', 10)]))
 
@@ -244,7 +244,7 @@ class EvaluateSubjectCF(forms.Form):
                                                    "<small><i>Resposta obligatòria.</i></small></p>"),
                                    required=True,
                                    widget=forms.RadioSelect(
-                                   attrs={'class':'form-control', 'class':'form-check-inline'},
+                                   attrs={'class':'form-control', 'class':'form-check-inline', 'required':'required'},
                                    choices=[('1', 1), ('2', 2), ('3', 3),('4', 4), ('5', 5), ('6', 6),
                                             ('7', 7), ('8', 8), ('9', 9), ('10', 10)]))
 
