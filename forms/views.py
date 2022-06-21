@@ -53,6 +53,7 @@ def user_checking(request):
         return HttpResponseRedirect(reverse('forms:unidentified_user'))
 
 
+# Currently only CF students evaluate subjects
 def subject_evaluation(request):
     try:
         ue = request.session['user_evaluation']
@@ -88,6 +89,7 @@ def subject_evaluation(request):
         return HttpResponseRedirect(reverse('forms:unidentified_user'))
 
 
+# Currently only CF students evaluate counseling ("Tutoria")
 def counseling_evaluation(request):
     try:
         ue = request.session['user_evaluation']
@@ -124,6 +126,7 @@ def counseling_evaluation(request):
         return HttpResponseRedirect(reverse('forms:unidentified_user'))
 
 
+# Currently students from every level (CF, ESO and Batxillerat) evaluate the school
 def school_evaluation(request):
     try:
         ue = request.session['user_evaluation']

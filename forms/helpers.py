@@ -163,11 +163,25 @@ def get_question_id(sort, level_id, subject_code):
     return question_id
 
 
+# Get question statement from 'master' schema of database
+def get_question_statement(sort, type_name, level_name, subject_code):
+    cursor = connections['master'].cursor()
+    sql = """
+            SELECT statement FROM master.question
+            WHERE sort = %s AND type_id = %s AND level_id = %s AND
+                  topic_id = %s AND disabled IS NULL;
+          """
+    cursor.execute(sql, (sort, get_type_id(type_name),
+                         get_level_id(level_name), get_topic_id(subject_code)))
+    question_statement = cursor.fetchone()[0]
+    return question_statement
+
+
 # Get topic id from 'master' schema of database
 def get_topic_id(subject_code):
-    if 'tutoria1' in subject_code.lower():
+    if 'tutoria' in subject_code.lower() and '1' in subject_code.lower():
         topic_name = 'Tutoria 1r CF'
-    elif 'tutoria2' in subject_code.lower():
+    elif 'tutoria' in subject_code.lower() and '2' in subject_code.lower():
         topic_name = 'Tutoria 2n CF'
     elif 'centre' in subject_code.lower():
         topic_name = 'Centre'
@@ -178,6 +192,30 @@ def get_topic_id(subject_code):
     cursor.execute(sql, (topic_name,))
     topic_id = cursor.fetchone()[0]
     return topic_id
+
+
+# Get level id from 'master' schema of database
+def get_level_id(level_name):
+    cursor = connections['master'].cursor()
+    sql = """
+            SELECT id FROM master.level
+            WHERE name = %s;
+          """
+    cursor.execute(sql, (level_name,))
+    level_id = cursor.fetchone()[0]
+    return level_id
+
+
+# Get type id from 'master' schema of database
+def get_type_id(type_name):
+    cursor = connections['master'].cursor()
+    sql = """
+            SELECT id FROM master.type
+            WHERE name = %s;
+          """
+    cursor.execute(sql, (type_name,))
+    type_id = cursor.fetchone()[0]
+    return type_id
 
 
 # Get trainer id from 'master' schema of database based on a subject id.
