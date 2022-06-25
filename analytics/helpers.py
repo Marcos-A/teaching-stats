@@ -1,6 +1,8 @@
 from django.db import connections
+from django.db.utils import DatabaseError
 from django.utils import timezone
 import os
+import traceback
 
 
 WRONG_ACCESS_ERROR_LOG = os.path.join(os.path.dirname(__file__), '..', 'log', 'error_log-wrong_access.txt')
@@ -8,25 +10,37 @@ WRONG_ACCESS_ERROR_LOG = os.path.join(os.path.dirname(__file__), '..', 'log', 'e
 
 # Get authorized user email
 def get_user_email(auth_user_id):
-    cursor = connections['default'].cursor()
     sql_get_user_email = "SELECT email FROM auth_user WHERE id = %s"
-    cursor.execute(sql_get_user_email, (auth_user_id,))
-    user_email = cursor.fetchone()[0]
-
-    return user_email
+    try:
+        cursor = connections['default'].cursor()
+        cursor.execute(sql_get_user_email, (auth_user_id,))
+        user_email = cursor.fetchone()[0]
+        return user_email
+    except(Exception, DatabaseError) as error:
+        catch_exception(error)
 
 
 # Check if email belongs to an authorized user
 def check_user_authorization(email):
-    cursor = connections['reports'].cursor()
     sql_check_user_authorization = "SELECT id FROM staff WHERE email = %s;"
-    cursor.execute(sql_check_user_authorization, (email,))
-    user_authorization = cursor.fetchone()
+    try:
+        cursor = connections['reports'].cursor()
+        cursor.execute(sql_check_user_authorization, (email,))
+        user_authorization = cursor.fetchone()
 
-    if user_authorization is None:
-        return False
-    else:
-        return True
+        if user_authorization is None:
+            return False
+        else:
+            return True
+
+    except(Exception, DatabaseError) as error:
+        catch_exception(error)
+
+
+# Print exception error message
+def catch_exception(e):    
+    print(str(e))
+    print(traceback.format_exc())
 
 
 # Save error log

@@ -101,7 +101,6 @@ def counseling_evaluation(request):
         else:
             return HttpResponseRedirect(reverse('forms:school_evaluation'))
 
-
         if request.method == 'POST':
             if tutoria == 'Tutoria1':
                 questions_form = EvaluateCounselingCF1(request.POST)
