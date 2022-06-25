@@ -69,3 +69,11 @@ img.logo-signin {
     margin-left: auto;
     margin-right: auto;
 } 
+
+ol.forms-bold-numbering li {
+    font-weight:bold;
+}
+
+li > * {
+    font-weight:normal;
+}

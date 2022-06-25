@@ -10,7 +10,12 @@
 <body>
   <div class="container text-center pt-5">
     <h1>INS Puig Castellar</h1>
-    <p>Enquesta de satisfacció curs 2020-21</p>
+    <p>Enquesta de satisfacció curs
+      <script>
+        var CurrentYear = new Date().getFullYear();
+        document.write((CurrentYear-1).toString() + "-" + CurrentYear.toString().slice(-2));
+      </script>
+    </p>
     <h5>Avaluació del centre</h5>
     <div class='jumbotron'>
       <center>
@@ -18,6 +23,7 @@
           <form id="school_avaluation_form" action="{% url 'forms:school_evaluation' %}" method="post">
             {% csrf_token %}
 
+            <ol class="forms-bold-numbering">
             {% for question in questions_form %}
             <div class='form-group'>
               <label class="scale_answers" for="{{ field.name }}">{{ question.label }}</label>
@@ -25,6 +31,7 @@
             </div>
             <hr>
             {% endfor %}
+            </ol>
             <br>
             <center><button type="submit" class="btn btn-success btn-lg">Enviar respostes</button></center>
           </form>

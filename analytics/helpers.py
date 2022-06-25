@@ -1,4 +1,4 @@
-from django.db import connections, transaction
+from django.db import connections
 from django.utils import timezone
 import os
 
@@ -38,4 +38,3 @@ def log_error(error, data='no data'):
     elif error == 'unidentified_staff':
         with open(WRONG_ACCESS_ERROR_LOG, 'a') as error_log:
             error_log.write("%s, %s, %s" % (str(timezone.now()), 'unidentified_staff', data) + "\n")
-
